@@ -32,6 +32,7 @@ var draw_vertices = [
 
 
 ]
+
 draw_vertices.forEach(function(v) { 
 	geometry.vertices.push(new THREE.Vector3(v[0]*scale, v[1]*scale, v[2]*scale));
 })
@@ -48,7 +49,7 @@ var sphere = new THREE.Mesh( sphere_geo, sphere_material );
 scene.add(line);
 scene.add(sphere);
 //renderer.render(scene, camera);
-var rotation_speed = 0.02;
+var rotation_speed = 0.0;
 document.setRotation = function() {
     if(rotation_speed == 0) {
         rotation_speed = 0.02; 
