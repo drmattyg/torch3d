@@ -7,7 +7,7 @@ camera.lookAt(new THREE.Vector3(0, 0, 0));
 var scene = new THREE.Scene();
 
 var material = new THREE.LineBasicMaterial({
-	color: 0x0000ff
+	color: 0x0000ff, linewidth: 3
 });
 
 
