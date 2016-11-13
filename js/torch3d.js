@@ -41,15 +41,25 @@ draw_vertices.forEach(function(v) {
 // geometry.vertices.push(new THREE.Vector3(10, 0, 0));
 
 var line = new THREE.Line(geometry, material);
-var sphere_geo = new THREE.SphereGeometry( 1, 32, 32 );
-var sphere_material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
-var sphere = new THREE.Mesh( sphere_geo, sphere_material );
+
+var sphere = new THREE.SphereGeometry( 0.5, 16, 8 );
+var light1 = new THREE.PointLight( 0xff0040, 2, 50 );
+light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
+light1.position.set(0, 0, 0);
+scene.add( light1 );
+
+// var sphere_geo = new THREE.SphereGeometry( 1, 32, 32 );
+// var sphere_material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+// var sphere = new THREE.Mesh( sphere_geo, sphere_material );
 //sphere.position.set(0, 0, 0);
 
 scene.add(line);
-scene.add(sphere);
+// scene.add(sphere);
 //renderer.render(scene, camera);
 var rotation_speed = 0.0;
+
+// eventeually replace this with camera rotation
+// https://codepen.io/nireno/pen/cAoGI
 document.setRotation = function() {
     if(rotation_speed == 0) {
         rotation_speed = 0.02; 
