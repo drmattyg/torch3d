@@ -74,3 +74,19 @@ var render = function () {
 	renderer.render(scene, camera);
 };
 render();
+
+var totalTime = 5000; // 5 sec
+var startTime = 0;
+
+anim = function(time) {
+    if(startTime == 0) {
+        startTime = time;
+    } else {
+        dt = time - startTime;
+        if(dt < totalTime) {
+            light1.position.x = scale*1.0*(dt/totalTime);
+        }
+    }
+    requestAnimationFrame(anim);
+}
+requestAnimationFrame(anim);
