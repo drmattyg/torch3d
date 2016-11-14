@@ -46,14 +46,24 @@ var sphere = new THREE.SphereGeometry( 0.5, 16, 8 );
 var light1 = new THREE.PointLight( 0xff0040, 2, 50 );
 light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
 light1.position.set(0, 0, 0);
+
+var addEdgeLabel = function(scene, text, xyz) {
+    var font_loader = new THREE.FontLoader();
+    var font = null
+    font_loader.load('fonts/droid_sans_bold.typeface.json', function(font) {
+        var text_geo = new THREE.TextGeometry(text, {font: font, size: 1, height: 0.1})
+        var text_mesh = new THREE.Mesh(text_geo, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) )
+        var text_group = new THREE.Group();
+        text_group.add(text_mesh);
+        text_group.position.set(xyz[0]*scale, xyz[1]*scale, xyz[2]*scale);
+        scene.add(text_group);
+    });
+}
+
 scene.add( light1 );
-
-// var sphere_geo = new THREE.SphereGeometry( 1, 32, 32 );
-// var sphere_material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
-// var sphere = new THREE.Mesh( sphere_geo, sphere_material );
-//sphere.position.set(0, 0, 0);
-
 scene.add(line);
+addEdgeLabel(scene, "1", [(vertices.v0[0] + vertices.v1[0])/2, (vertices.v0[1] + vertices.v1[1])/2, (vertices.v0[2] + vertices.v1[2])/2]);
+
 // scene.add(sphere);
 //renderer.render(scene, camera);
 var rotation_speed = 0.0;
