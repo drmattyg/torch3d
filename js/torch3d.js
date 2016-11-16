@@ -8,15 +8,12 @@ camera.lookAt(new THREE.Vector3(0, 0, 0));
 var scene = new THREE.Scene();
 
 var scale = 10;
-var torchModel = new TorchModel(scale);
+var torchModel = new TorchModel(scale, scene);
 var torchModelRender = torchModel.renderStructure()
 scene.add(torchModelRender);
-
-
-var sphere = new THREE.SphereGeometry( 0.5, 16, 8 );
-var light1 = new THREE.PointLight( 0xff0040, 2, 50 );
-light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
-light1.position.set(0, 0, 0);
+torchModel.edges.e0.flame_state = FLAME_STATE.ON
+torchModel.edges.e0.drive_state = DRIVE_STATE.ON
+torchModel.edges.e0.speed = 0.01
 
 var addEdgeLabel = function(scene, text, xyz) {
     var font_loader = new THREE.FontLoader();
@@ -31,7 +28,6 @@ var addEdgeLabel = function(scene, text, xyz) {
     });
 }
 
-scene.add( light1 );
 var rotation_speed = 0.0;
 
 // eventeually replace this with camera rotation
@@ -60,7 +56,7 @@ var anim = function(time) {
     } else {
         var dt = time - startTime;
         if(dt < totalTime) {
-            light1.position.x = scale*1.0*(dt/totalTime);
+            torchModel.edges.e0.tick()
         }
     }
     requestAnimationFrame(anim);

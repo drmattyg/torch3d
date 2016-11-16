@@ -17,20 +17,32 @@ var DRIVE_STATE = {
 
 class Edge {
 
-	constructor(reverse_vertex, forward_vertex, scale, speed){
+	constructor(reverse_vertex, forward_vertex, scale, speed, scene){
 		this.reverse_vertex = reverse_vertex;
 		this.forward_vertex = forward_vertex;
 		this.speed = speed;
 		this.scale = scale;
+		this.scene = scene;
 		this.relative_position = 0; // 0 = reverse_vertex, 1 = forward_vertex
-		this.state = FLAME_STATE.OFF;
+		this.flame_state = FLAME_STATE.OFF;
 		this.drive_dir = DRIVE_DIRECTION.FORWARD;
 		this.drive_state = DRIVE_STATE.OFF;
+		var sphere = new THREE.SphereGeometry( 0.5, 16, 8 );
+		this.flame = new THREE.PointLight( 0xff0040, 2, 50 );
+		this.flame.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
+
 	}
 
-	get spatialPosition() {
+	spatialPosition() {
+		var p = (x0, x1, f) => { return x0 + (x1 - x0)*f; }
 		var r = [0, 0, 0];
-		[0, 1, 2].forEach((n) => { r[n] = this.scale*(this.reverse_vertex[n] + this.forward_vertex[n])/2 } )
+		var self = this;
+		[0, 1, 2].forEach(function(n) {
+			r[n] = 
+			self.scale*(self.reverse_vertex[n] + 
+				(self.forward_vertex[n] - 
+					self.reverse_vertex[n])*(1.0*self.relative_position));
+		})
 		return r;
 	}
 
@@ -42,21 +54,33 @@ class Edge {
 		return (this.relative_position >= 1);
 	}
 
+	renderFlame() {
+		if(this.flame_state == FLAME_STATE.ON) {
+			var pt = this.spatialPosition();
+			this.flame.position.set(pt[0], pt[1], pt[2]);
+			this.scene.add(this.flame);
+		} else {
+			this.scene.remove(this.flame);
+		}
+	}
+
 	tick() {
-		if(this.limitForward || this.limitReverse) { return; }
+		if((this.limitReverse && this.drive_dir == DRIVE_DIRECTION.REVERSE) || 
+			(this.limitForward && this.drive_dir == DRIVE_DIRECTION.FORWARD)) { return; }
 		if(this.drive_state == DRIVE_STATE.ON) {
 			var new_position = this.relative_position + (this.drive_dir * this.speed);
 			if(new_position <= 0) {
-				this.relative_position = this.reverse_vertex;
+				this.relative_position = 0;
 				return;
 			}
 
 			if(new_position >= 1) {
-				this.relative_position = this.forward_vertex;
+				this.relative_position = 1;
 				return;
 			}
-			this.relative_position = this.new_position;
+			this.relative_position = new_position;
 		}
+		this.renderFlame()
 	}
 
 
