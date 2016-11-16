@@ -43,3 +43,15 @@ gulp.task('bundle', function () {
     var bundler = browserify(config.js.src)  // Pass browserify the entry point
     bundle(bundler);  // Chain other options -- sourcemaps, rename, etc.
 })
+
+gulp.task('watchify', function(){
+   watchify.args.debug = true;
+   var bundler = watchify(browserify('./js/torch3d.js', watchify.args));
+    bundler.on('update', rebundle);
+    bundler.on('log', gutil.log.bind(gutil));
+    function rebundle() {
+      return bundle(bundler);
+  }
+
+  return rebundle()
+})

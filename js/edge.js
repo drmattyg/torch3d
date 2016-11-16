@@ -96,3 +96,10 @@ class Edge {
 
 
 }
+
+module.exports = {
+	FLAME_STATE: FLAME_STATE,
+	DRIVE_DIRECTION: DRIVE_DIRECTION,
+	DRIVE_STATE: DRIVE_STATE,
+	Edge
+}

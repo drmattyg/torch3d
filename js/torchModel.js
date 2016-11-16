@@ -1,5 +1,6 @@
 "use strict";
-
+var EdgeModel = require("./edge.js")
+var Edge = EdgeModel.Edge
 class TorchModel {
     constructor(scale, scene) {
         this.scale = scale;
@@ -35,8 +36,10 @@ class TorchModel {
 		    this.vertices.v1, this.vertices.v4, this.vertices.v2, // bottom tetrahedron side 2
 		    this.vertices.v4, this.vertices.v3 // bottom tetrahedron side 2
 		]
-		draw_order.forEach((v) => { geometry.vertices.push(new THREE.Vector3(v[0]*scale, v[1]*scale, v[2]*scale)); });
+		draw_order.forEach((v) => { geometry.vertices.push(new THREE.Vector3(v[0]*this.scale, v[1]*this.scale, v[2]*this.scale)); });
 		return new THREE.Line(geometry, material);
     }
 
 }
+
+module.exports = TorchModel

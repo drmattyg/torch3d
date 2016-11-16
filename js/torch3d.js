@@ -1,4 +1,6 @@
 "use strict";
+var TorchModel = require('./torchModel.js')
+var EdgeModel = require('./edge.js')
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -11,9 +13,9 @@ var scale = 10;
 var torchModel = new TorchModel(scale, scene);
 var torchModelRender = torchModel.renderStructure()
 scene.add(torchModelRender);
-torchModel.edges.e0.flame_state = FLAME_STATE.ON
-torchModel.edges.e0.drive_state = DRIVE_STATE.ON
-torchModel.edges.e0.speed = 0.01
+torchModel.edges.e0.flame_state = EdgeModel.FLAME_STATE.ON
+torchModel.edges.e0.drive_state = EdgeModel.DRIVE_STATE.ON
+torchModel.edges.e0.speed = 0.1
 
 var addEdgeLabel = function(scene, text, xyz) {
     var font_loader = new THREE.FontLoader();
