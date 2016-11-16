@@ -27,10 +27,15 @@ class Edge {
 		this.flame_state = FLAME_STATE.OFF;
 		this.drive_dir = DRIVE_DIRECTION.FORWARD;
 		this.drive_state = DRIVE_STATE.OFF;
+		this.limit_callback = null;
 		var sphere = new THREE.SphereGeometry( 0.5, 16, 8 );
 		this.flame = new THREE.PointLight( 0xff0040, 2, 50 );
 		this.flame.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
 
+	}
+
+	setLimitCallback(cb) {
+		this.limit_callback = cb;
 	}
 
 	spatialPosition() {
@@ -71,11 +76,17 @@ class Edge {
 			var new_position = this.relative_position + (this.drive_dir * this.speed);
 			if(new_position <= 0) {
 				this.relative_position = 0;
+				if(this.limit_callback) {
+					this.limit_callback(DRIVE_DIRECTION.REVERSE);
+				}
 				return;
 			}
 
 			if(new_position >= 1) {
 				this.relative_position = 1;
+				if(this.limit_callback) {
+					this.limit_callback(DRIVE_DIRECTION.FORWARD);
+				}
 				return;
 			}
 			this.relative_position = new_position;
