@@ -23,9 +23,14 @@ class TorchModel {
 
     }
 
+    stopAll() {
+    	var self = this
+    	this.edges.forEach((edge) => { edge.speed = 0; })
+    }
+
     renderStructure() { 
 		var material = new THREE.LineBasicMaterial({
-			color: 0x0000ff, linewidth: 3
+			color: 0x00ffff, linewidth: 3
 		});
 		var geometry = new THREE.Geometry();
 		var draw_order = [
@@ -38,6 +43,10 @@ class TorchModel {
 		]
 		draw_order.forEach((v) => { geometry.vertices.push(new THREE.Vector3(v[0]*this.scale, v[1]*this.scale, v[2]*this.scale)); });
 		return new THREE.Line(geometry, material);
+    }
+
+    tick(time) {
+    	this.edges.forEach((edge) => edge.tick());
     }
 
 }

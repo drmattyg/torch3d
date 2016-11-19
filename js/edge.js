@@ -74,16 +74,18 @@ class Edge {
 			(this.limitForward && this.drive_dir == DRIVE_DIRECTION.FORWARD)) { return; }
 		if(this.drive_state == DRIVE_STATE.ON) {
 			var new_position = this.relative_position + (this.drive_dir * this.speed);
-			if(new_position <= 0) {
+			if(new_position <= 0 && this.drive_dir == DRIVE_DIRECTION.REVERSE) {
 				this.relative_position = 0;
+				this.speed = 0;
 				if(this.limit_callback) {
 					this.limit_callback(DRIVE_DIRECTION.REVERSE);
 				}
 				return;
 			}
 
-			if(new_position >= 1) {
+			if(new_position >= 1 && this.drive_dir == DRIVE_DIRECTION.FORWARD) {
 				this.relative_position = 1;
+				this.speed = 0;
 				if(this.limit_callback) {
 					this.limit_callback(DRIVE_DIRECTION.FORWARD);
 				}

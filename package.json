@@ -16,5 +16,8 @@
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "js-yaml": "^3.7.0",
+    "lodash": "^4.17.2"
+  }
 }

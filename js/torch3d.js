@@ -1,6 +1,7 @@
 "use strict";
 var TorchModel = require('./torchModel.js')
 var EdgeModel = require('./edge.js')
+var Songbook = require('./songbook.js')
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -13,9 +14,11 @@ var scale = 10;
 var torchModel = new TorchModel(scale, scene);
 var torchModelRender = torchModel.renderStructure()
 scene.add(torchModelRender);
-torchModel.edges.e0.flame_state = EdgeModel.FLAME_STATE.ON
-torchModel.edges.e0.drive_state = EdgeModel.DRIVE_STATE.ON
-torchModel.edges.e0.speed = 0.1
+// torchModel.edges.e0.flame_state = EdgeModel.FLAME_STATE.ON
+// torchModel.edges.e0.drive_state = EdgeModel.DRIVE_STATE.ON
+// torchModel.edges.e0.speed = 0.1
+
+
 
 var addEdgeLabel = function(scene, text, xyz) {
     var font_loader = new THREE.FontLoader();
@@ -41,26 +44,15 @@ document.setRotation = function() {
         rotation_speed = 0;
     }
 }
-var render = function () {
-	requestAnimationFrame( render );
-	torchModelRender.rotation.y += rotation_speed;
 
-	renderer.render(scene, camera);
-};
-render();
-
-var totalTime = 5000; // 5 sec
-var startTime = 0;
-
-var anim = function(time) {
-    if(startTime == 0) {
-        startTime = time;
-    } else {
-        var dt = time - startTime;
-        if(dt < totalTime) {
-            torchModel.edges.e0.tick()
-        }
+renderer.render(scene, camera);
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var sb = new Songbook(this.responseText, torchModel);
+        sb.run();
     }
-    requestAnimationFrame(anim);
-}
-requestAnimationFrame(anim);
+};
+xhttp.open("GET", "songbooks/test.yaml", true);
+xhttp.send();
+
