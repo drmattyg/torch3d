@@ -14,10 +14,6 @@ var scale = 10;
 var torchModel = new TorchModel(scale, scene);
 var torchModelRender = torchModel.renderStructure()
 scene.add(torchModelRender);
-// torchModel.edges.e0.flame_state = EdgeModel.FLAME_STATE.ON
-// torchModel.edges.e0.drive_state = EdgeModel.DRIVE_STATE.ON
-// torchModel.edges.e0.speed = 0.1
-
 
 
 var addEdgeLabel = function(scene, text, xyz) {
@@ -44,8 +40,10 @@ document.setRotation = function() {
         rotation_speed = 0;
     }
 }
-
-renderer.render(scene, camera);
+window.render = function() {
+    renderer.render(scene, camera);
+}
+window.render()
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {

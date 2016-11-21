@@ -12,13 +12,13 @@ class TorchModel {
         this.edges = {
         	e0: new Edge(this.vertices.v1, this.vertices.v0, scale, this.speed, this.scene),
         	e1: new Edge(this.vertices.v2, this.vertices.v0, scale, this.speed, this.scene),
-        	e3: new Edge(this.vertices.v3, this.vertices.v0, scale, this.speed, this.scene),
-        	e4: new Edge(this.vertices.v1, this.vertices.v2, scale, this.speed, this.scene),
-        	e5: new Edge(this.vertices.v2, this.vertices.v3, scale, this.speed, this.scene),
-        	e6: new Edge(this.vertices.v3, this.vertices.v1, scale, this.speed, this.scene),
-        	e7: new Edge(this.vertices.v4, this.vertices.v1, scale, this.speed, this.scene),
-        	e8: new Edge(this.vertices.v4, this.vertices.v2, scale, this.speed, this.scene),
-        	e9: new Edge(this.vertices.v4, this.vertices.v3, scale, this.speed, this.scene)
+        	e2: new Edge(this.vertices.v3, this.vertices.v0, scale, this.speed, this.scene),
+        	e3: new Edge(this.vertices.v1, this.vertices.v2, scale, this.speed, this.scene),
+        	e4: new Edge(this.vertices.v2, this.vertices.v3, scale, this.speed, this.scene),
+        	e5: new Edge(this.vertices.v3, this.vertices.v1, scale, this.speed, this.scene),
+        	e6: new Edge(this.vertices.v4, this.vertices.v1, scale, this.speed, this.scene),
+        	e7: new Edge(this.vertices.v4, this.vertices.v2, scale, this.speed, this.scene),
+        	e8: new Edge(this.vertices.v4, this.vertices.v3, scale, this.speed, this.scene)
         }
 
     }
@@ -45,8 +45,21 @@ class TorchModel {
 		return new THREE.Line(geometry, material);
     }
 
+    edgeList() { 
+    	var self = this;
+    	return Object.keys(self.edges).map((k) => self.edges[k])
+
+    }
+// replace both below with edgeList; why is tick never getting called?
+    clearCallbacks() {
+    	var self = this;
+    	self.edgeList().forEach((edge) => { 
+    		edge.setLimitCallback(null);
+    	})
+    }
+
     tick(time) {
-    	this.edges.forEach((edge) => edge.tick());
+    	this.edgeList().forEach((edge) => edge.tick());
     }
 
 }

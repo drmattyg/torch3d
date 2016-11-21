@@ -15,16 +15,16 @@ class Songbook {
 
 	setCallbacks(measure) {
 		this.wait_for = {}
+		var self = this
 		_.forEach(measure, (cmd) => {
 			var waitForObj = {done: false, callback: null}
-			var limitCallback = (x) => { wait_for_obj.done = true; }
+			var limitCallback = (x) => { waitForObj.done = true; }
 			waitForObj.callback = limitCallback;
-			torchModel.edges[cmd.edge].setLimitCallback(limitCallback);
+			self.torchModel.edges[cmd.edge].setLimitCallback(limitCallback);
 		})
 		this.wait_for = _.map(measure, function(cmd) { 
 			return {edge: cmd.edge, done: false, callback: null}
 		})
-		torchModel.edges[cmd.edge].setLimitCallback((dir) => { })
 	}
 
 	allDone() {
@@ -32,24 +32,29 @@ class Songbook {
 		return !_.find(states)
 	}
 
-
-	_animate(time) {
-	    torchModel.tick(time);
-	    requestAnimationFrame(this._animate);
-	}
-
-
 	run() {
+		var self = this;
+		var _animate = function(time) {
+			self.torchModel.tick(time);
+			window.render();
+    		if(!self.allDone()) {
+    			requestAnimationFrame(_animate);
+    		}
+		};
+
 		_.forEach(self.songbook, function(m) {
 			var measure = m.measure;
-			setCallbacks(measure);
+			self.torchModel.clearCallbacks();
+			self.setCallbacks(measure);
 			_.forEach(measure, (cmd) => {
-				var edge = torchModel.edges[cmd.edge];
+				var edge = self.torchModel.edges[cmd.edge];
 				edge.speed = cmd.speed;
-				edge.flame_state = cmd.flame_state;
+				edge.flame_state = cmd.flame;
 				if(cmd.dir) { edge.drive_dir = cmd.dir; }
+				requestAnimationFrame(_animate);
+
 			});
-			while(!allDone()) { }
+
 		});
 	}
 

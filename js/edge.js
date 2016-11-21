@@ -10,11 +10,6 @@ var DRIVE_DIRECTION = {
 	REVERSE: -1
 }
 
-var DRIVE_STATE = {
-	ON: 1,
-	OFF: 0
-}
-
 class Edge {
 
 	constructor(reverse_vertex, forward_vertex, scale, speed, scene){
@@ -26,7 +21,6 @@ class Edge {
 		this.relative_position = 0; // 0 = reverse_vertex, 1 = forward_vertex
 		this.flame_state = FLAME_STATE.OFF;
 		this.drive_dir = DRIVE_DIRECTION.FORWARD;
-		this.drive_state = DRIVE_STATE.OFF;
 		this.limit_callback = null;
 		var sphere = new THREE.SphereGeometry( 0.5, 16, 8 );
 		this.flame = new THREE.PointLight( 0xff0040, 2, 50 );
@@ -59,12 +53,17 @@ class Edge {
 		return (this.relative_position >= 1);
 	}
 
+	flameOn() {
+		this.scene.add(this.flame);
+	}
+
 	renderFlame() {
 		if(this.flame_state == FLAME_STATE.ON) {
 			var pt = this.spatialPosition();
 			this.flame.position.set(pt[0], pt[1], pt[2]);
 			this.scene.add(this.flame);
-		} else {
+		} 
+		else {
 			this.scene.remove(this.flame);
 		}
 	}
@@ -72,8 +71,8 @@ class Edge {
 	tick() {
 		if((this.limitReverse && this.drive_dir == DRIVE_DIRECTION.REVERSE) || 
 			(this.limitForward && this.drive_dir == DRIVE_DIRECTION.FORWARD)) { return; }
-		if(this.drive_state == DRIVE_STATE.ON) {
-			var new_position = this.relative_position + (this.drive_dir * this.speed);
+		if(this.speed > 0) {
+			var new_position = this.relative_position + (this.drive_dir * this.speed/10000);
 			if(new_position <= 0 && this.drive_dir == DRIVE_DIRECTION.REVERSE) {
 				this.relative_position = 0;
 				this.speed = 0;
@@ -102,6 +101,5 @@ class Edge {
 module.exports = {
 	FLAME_STATE: FLAME_STATE,
 	DRIVE_DIRECTION: DRIVE_DIRECTION,
-	DRIVE_STATE: DRIVE_STATE,
 	Edge
 }
