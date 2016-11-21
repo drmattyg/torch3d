@@ -69,7 +69,7 @@ class Edge {
 	}
 
 	tick() {
-		if((this.limitReverse && this.drive_dir == DRIVE_DIRECTION.REVERSE) || 
+		if((this.limitReverse && this.drive_dir == DRIVE_DIRECTION.REVERSE && this.speed > 0) || 
 			(this.limitForward && this.drive_dir == DRIVE_DIRECTION.FORWARD)) { return; }
 		if(this.speed > 0) {
 			var new_position = this.relative_position + (this.drive_dir * this.speed/1000);
@@ -82,7 +82,7 @@ class Edge {
 				return;
 			}
 
-			if(new_position >= 1 && this.drive_dir == DRIVE_DIRECTION.FORWARD) {
+			if(new_position >= 1 && this.drive_dir == DRIVE_DIRECTION.FORWARD && this.speed > 0) {
 				this.relative_position = 1;
 				this.speed = 0;
 				if(this.limit_callback) {

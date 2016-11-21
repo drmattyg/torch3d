@@ -50,7 +50,7 @@ class TorchModel {
     	return Object.keys(self.edges).map((k) => self.edges[k])
 
     }
-// replace both below with edgeList; why is tick never getting called?
+
     clearCallbacks() {
     	var self = this;
     	self.edgeList().forEach((edge) => { 

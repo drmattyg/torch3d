@@ -13,21 +13,36 @@ class Songbook {
 	}
 
 	setCallbacks(measure) {
-		this.wait_for = {}
+		var wf = [];
 		var self = this
 		_.forEach(measure, (cmd) => {
 			var waitForObj = {done: false, callback: null}
 			var limitCallback = (x) => { waitForObj.done = true; }
 			waitForObj.callback = limitCallback;
 			self.torchModel.edges[cmd.edge].setLimitCallback(limitCallback);
+			wf.push(waitForObj);
 		})
-		this.wait_for = _.map(measure, function(cmd) { 
-			return {edge: cmd.edge, done: false, callback: null}
-		})
+		return wf;
 	}
 
-	allDone() {
-		var states = _.map(this.wait_for, function(w) { return !w.done; })
+	setEdges(measure) {
+		var self = this;
+		_.forEach(measure, (cmd) => {
+			var edge = self.torchModel.edges[cmd.edge];
+			edge.speed = cmd.speed;
+			edge.flame_state = cmd.flame;
+			if(cmd.dir) { edge.drive_dir = cmd.dir; }
+		});
+
+	}
+
+	clearEdges() {
+		self = this;
+		_.forEach()
+	}
+
+	allDone(wf) {
+		var states = _.map(wf, function(w) { return !w.done; })
 		return !_.find(states)
 	}
 
@@ -38,32 +53,26 @@ class Songbook {
 		var cmd_num = 0;
 		var measure_num = 0;
 		var measure = null;
+		var wf = null;
 		var _animate = function(time) {
 
 			if(m_start) {
-				console.log("Start measure")
+				wf = [];
 				measure = self.songbook[measure_num].measure
 				self.torchModel.clearCallbacks();
-				self.setCallbacks(measure);
-				_.forEach(measure, (cmd) => {
-					var edge = self.torchModel.edges[cmd.edge];
-					edge.speed = cmd.speed;
-					edge.flame_state = cmd.flame;
-					if(cmd.dir) { edge.drive_dir = cmd.dir; }				
-				});
+				wf = self.setCallbacks(measure);
+				self.setEdges(measure);
 				m_start = false;
 
 			}
 			self.torchModel.tick(time);
 			window.render();
 			console.log(self.allDone())
-			if(self.allDone()) {
-				console.log("Next measure");
+			if(self.allDone(wf)) {
 				measure_num++;
 				m_start = true;
 			}
 			if(measure_num > self.songbook.length) {
-				console.log("Done")
 				return;
 			}
     		requestAnimationFrame(_animate);
@@ -72,23 +81,6 @@ class Songbook {
 
 	}
 
-		// _.forEach(self.songbook, function(m) {
-		// 	var measure = m.measure;
-		// 	self.torchModel.clearCallbacks();
-		// 	self.setCallbacks(measure);
-		// 	_.forEach(measure, (cmd) => {
-		// 		var edge = self.torchModel.edges[cmd.edge];
-		// 		edge.speed = cmd.speed;
-		// 		edge.flame_state = cmd.flame;
-		// 		if(cmd.dir) { edge.drive_dir = cmd.dir; }
-		// 		requestAnimationFrame(_animate);
-		// 		while(!self.allDone()) {
-		// 			console.log("Not done")
-		// 		}
-
-		// 	});
-
-		// });
 
 
 }
