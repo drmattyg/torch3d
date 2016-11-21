@@ -72,7 +72,7 @@ class Edge {
 		if((this.limitReverse && this.drive_dir == DRIVE_DIRECTION.REVERSE) || 
 			(this.limitForward && this.drive_dir == DRIVE_DIRECTION.FORWARD)) { return; }
 		if(this.speed > 0) {
-			var new_position = this.relative_position + (this.drive_dir * this.speed/10000);
+			var new_position = this.relative_position + (this.drive_dir * this.speed/1000);
 			if(new_position <= 0 && this.drive_dir == DRIVE_DIRECTION.REVERSE) {
 				this.relative_position = 0;
 				this.speed = 0;

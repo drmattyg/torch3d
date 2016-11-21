@@ -10,7 +10,6 @@ class Songbook {
 			console.log(e)
 		}
 		this.torchModel = torchModel
-		this.current = -1
 	}
 
 	setCallbacks(measure) {
@@ -34,29 +33,62 @@ class Songbook {
 
 	run() {
 		var self = this;
+		var m_start = true;
+		var cmd_start = true;
+		var cmd_num = 0;
+		var measure_num = 0;
+		var measure = null;
 		var _animate = function(time) {
+
+			if(m_start) {
+				console.log("Start measure")
+				measure = self.songbook[measure_num].measure
+				self.torchModel.clearCallbacks();
+				self.setCallbacks(measure);
+				_.forEach(measure, (cmd) => {
+					var edge = self.torchModel.edges[cmd.edge];
+					edge.speed = cmd.speed;
+					edge.flame_state = cmd.flame;
+					if(cmd.dir) { edge.drive_dir = cmd.dir; }				
+				});
+				m_start = false;
+
+			}
 			self.torchModel.tick(time);
 			window.render();
-    		if(!self.allDone()) {
-    			requestAnimationFrame(_animate);
-    		}
-		};
+			console.log(self.allDone())
+			if(self.allDone()) {
+				console.log("Next measure");
+				measure_num++;
+				m_start = true;
+			}
+			if(measure_num > self.songbook.length) {
+				console.log("Done")
+				return;
+			}
+    		requestAnimationFrame(_animate);
+    	};
+    	requestAnimationFrame(_animate);
 
-		_.forEach(self.songbook, function(m) {
-			var measure = m.measure;
-			self.torchModel.clearCallbacks();
-			self.setCallbacks(measure);
-			_.forEach(measure, (cmd) => {
-				var edge = self.torchModel.edges[cmd.edge];
-				edge.speed = cmd.speed;
-				edge.flame_state = cmd.flame;
-				if(cmd.dir) { edge.drive_dir = cmd.dir; }
-				requestAnimationFrame(_animate);
-
-			});
-
-		});
 	}
+
+		// _.forEach(self.songbook, function(m) {
+		// 	var measure = m.measure;
+		// 	self.torchModel.clearCallbacks();
+		// 	self.setCallbacks(measure);
+		// 	_.forEach(measure, (cmd) => {
+		// 		var edge = self.torchModel.edges[cmd.edge];
+		// 		edge.speed = cmd.speed;
+		// 		edge.flame_state = cmd.flame;
+		// 		if(cmd.dir) { edge.drive_dir = cmd.dir; }
+		// 		requestAnimationFrame(_animate);
+		// 		while(!self.allDone()) {
+		// 			console.log("Not done")
+		// 		}
+
+		// 	});
+
+		// });
 
 
 }

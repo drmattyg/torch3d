@@ -5,13 +5,13 @@
   - edge: e1
     flame: 1
     speed: 30
-# - measure:
-#   - edge: e0
-#     speed: 50
-#     dir: 0
-#   - edge: e1
-#     flame: 0
-#     speed: 0
-#   - edge: e2
-#     flame: 1
-#     speed: 
+- measure:
+  - edge: e0
+    speed: 50
+    dir: 0
+  - edge: e1
+    flame: 0
+    speed: 0
+  - edge: e2
+    flame: 1
+    speed: 
