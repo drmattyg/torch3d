@@ -13,20 +13,12 @@ var scene = new THREE.Scene();
 
 var ts = new TorchScene(scene);
 ts.loadSkyBox();
+ts.loadGround();
 
 var scale = 10;
 var torchModel = new TorchModel(scale, scene);
 var torchModelRender = torchModel.renderStructure()
 scene.add(torchModelRender);
-
-
-var floor_geom = new THREE.PlaneGeometry( 1000, 100, 1, 1 );
-var floor_material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
-var floor = new THREE.Mesh( floor_geom, floor_material );
-floor.material.side = THREE.DoubleSide;
-floor.rotation.x = Math.PI/2;
-floor.position.x = 0
-scene.add(floor);
 
 var addEdgeLabel = function(scene, text, xyz) {
     var font_loader = new THREE.FontLoader();

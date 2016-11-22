@@ -3,12 +3,22 @@ var EdgeModel = require("./edge.js")
 var Edge = EdgeModel.Edge
 class TorchModel {
     constructor(scale, scene) {
+    	var offset = [0, 0, 1];
         this.scale = scale;
         this.speed = scale/10;
         this.scene = scene;
         var h = Math.sqrt(3)/2
         var c = 1/3
-        this.vertices = {v0: [0.5, 2*h, c], v1: [0, h, 0], v2: [1, h, 0], v3: [0.5, h, h], v4: [0.5, 0, c]} ;
+        var DEFAULT_VERTICES = {v0: [0.5, 2*h, c], v1: [0, h, 0], v2: [1, h, 0], v3: [0.5, h, h], v4: [0.5, 0, c]} ;
+        this.vertices = {}
+        self = this;
+        Object.keys(DEFAULT_VERTICES).forEach(function(k) {
+        	var xyz = DEFAULT_VERTICES[k];
+        	[0, 1, 2].forEach(function(ix) {
+        		xyz[ix] += offset[ix];
+        	})
+        	self.vertices[k] = xyz;
+        })
         this.edges = {
         	e0: new Edge(this.vertices.v1, this.vertices.v0, scale, this.speed, this.scene),
         	e1: new Edge(this.vertices.v2, this.vertices.v0, scale, this.speed, this.scene),

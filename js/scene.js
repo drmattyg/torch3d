@@ -32,6 +32,17 @@ class TorchScene {
 
 		return material; 
 	}
+
+	loadGround() {
+		var groundTexture = THREE.ImageUtils.loadTexture('images/wet-sand.jpg');
+		groundTexture.wrapS = THREE.RepeatWrapping;
+		groundTexture.wrapT = THREE.RepeatWrapping;
+		var groundMat = new THREE.MeshBasicMaterial( { map: groundTexture } ); //, color: 0xbf983f} );
+		groundMat.map.repeat.set(5,5);
+		var groundMesh = new THREE.Mesh( new THREE.PlaneGeometry(100, 100, 2, 2), groundMat);
+		groundMesh.rotation.set(-90 * (3.14/180), 0, 0, 'XYZ');
+		this.scene.add(groundMesh);
+	}
 }
 
 module.exports = TorchScene;
