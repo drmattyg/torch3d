@@ -2,19 +2,31 @@
 var TorchModel = require('./torchModel.js')
 var EdgeModel = require('./edge.js')
 var Songbook = require('./songbook.js')
+var TorchScene = require('./scene.js')
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
-camera.position.set(0, 10, 50);
+camera.position.set(0, 20, 50);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 var scene = new THREE.Scene();
+
+var ts = new TorchScene(scene);
+ts.loadSkyBox();
 
 var scale = 10;
 var torchModel = new TorchModel(scale, scene);
 var torchModelRender = torchModel.renderStructure()
 scene.add(torchModelRender);
 
+
+var floor_geom = new THREE.PlaneGeometry( 1000, 100, 1, 1 );
+var floor_material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
+var floor = new THREE.Mesh( floor_geom, floor_material );
+floor.material.side = THREE.DoubleSide;
+floor.rotation.x = Math.PI/2;
+floor.position.x = 0
+scene.add(floor);
 
 var addEdgeLabel = function(scene, text, xyz) {
     var font_loader = new THREE.FontLoader();

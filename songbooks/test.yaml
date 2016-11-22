@@ -15,3 +15,10 @@
   - edge: e2
     flame: 1
     speed: 20
+- measure:
+  - edge: e0
+    flame: 0
+  - edge: e1
+    flame: 0
+  - edge: e2
+    flame: 0

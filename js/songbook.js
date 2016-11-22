@@ -67,15 +67,14 @@ class Songbook {
 			}
 			self.torchModel.tick(time);
 			window.render();
-			console.log(self.allDone())
 			if(self.allDone(wf)) {
 				measure_num++;
 				m_start = true;
 			}
-			if(measure_num > self.songbook.length) {
-				return;
+			if(!(measure_num > self.songbook.length)) {
+				requestAnimationFrame(_animate);
 			}
-    		requestAnimationFrame(_animate);
+    		
     	};
     	requestAnimationFrame(_animate);
 

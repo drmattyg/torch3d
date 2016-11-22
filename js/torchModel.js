@@ -8,7 +8,7 @@ class TorchModel {
         this.scene = scene;
         var h = Math.sqrt(3)/2
         var c = 1/3
-        this.vertices = {v0: [0.5, h, c], v1: [0, 0, 0], v2: [1, 0, 0], v3: [0.5, 0, h], v4: [0.5, -h, c]} ;
+        this.vertices = {v0: [0.5, 2*h, c], v1: [0, h, 0], v2: [1, h, 0], v3: [0.5, h, h], v4: [0.5, 0, c]} ;
         this.edges = {
         	e0: new Edge(this.vertices.v1, this.vertices.v0, scale, this.speed, this.scene),
         	e1: new Edge(this.vertices.v2, this.vertices.v0, scale, this.speed, this.scene),
