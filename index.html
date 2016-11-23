@@ -4,16 +4,94 @@
 		<meta charset=utf-8>
 		<title>Torch3D</title>
 		<style>
-			body { margin: 0; }
-			canvas { width: 100%; height: 100% }
+			body { margin: 0; background-color: black; }
+			#torch { width:300px; height: 600px; 
+				border: 1px solid black;
+				margin: 10px;
+				padding: 0px;
+			}
+			#editor { 
+				height: 600px;
+				margin: 10px;
+				border: 1px solid black;
+/*				position: relative;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;*/
+			}
 		</style>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.js"></script>
+
 	</head>
 	<body>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.js"></script>
-		<!-- script src="js/edge.js"></script>
-		<script src="js/torchModel.js"></script>
-		<script src="js/torch3d.js"></script> -->
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-6" id="torch" style="max-width:50%; border-style=">
+				</div>
+				<div class="col-xs-6" id="editor" style="width:50%">
+- measure:
+  - edge: e0
+    flame: 1
+    speed: 50
+  - edge: e1
+    flame: 1
+    speed: 30
+- measure:
+  - edge: e0
+    speed: 50
+    dir: -1
+    flame: 1
+  - edge: e1
+    flame: 0
+  - edge: e2
+    flame: 1
+    speed: 20
+- measure:
+  - edge: e0
+    flame: 0
+  - edge: e1
+    flame: 0
+  - edge: e2
+    flame: 0
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6" style="width: 300px">
+				</div>
+				<div class="col-xs-6" style="width: 50%; padding-left: 30px">
+					<button class="btn-primary" id="run-button">Run</button>
+				</div>
+
+
+				</div>
+			</div>
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js"></script>
 		<script src="build/bundle.js"></script>
-		<button onclick="document.setRotation()">Start/Stop Rotation</button>
+		<div id="error-modal" class="modal fade" role="dialog">
+			<div class="modal-dialog  modal-lg">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Songbook Parse Error</h4>
+					</div>
+					<div class="modal-body" id="error-modal-text">
+					<b>Error:</b><p>
+						<pre></pre>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+		</div>		
+
 	</body>
 </html>

@@ -93,6 +93,21 @@ class Edge {
 		this.renderFlame()
 	}
 
+	// this doesn't work quite right, just moved over the unfinished example code from torch3d.js
+	addEdgeLabel(scene, text, xyz) {
+		var font_loader = new THREE.FontLoader();
+		var font = null
+		font_loader.load('fonts/droid_sans_bold.typeface.json', function(font) {
+			var text_geo = new THREE.TextGeometry(text, {font: font, size: 1, height: 0.1})
+			var text_mesh = new THREE.Mesh(text_geo, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) )
+			var text_group = new THREE.Group();
+			text_group.add(text_mesh);
+			text_group.position.set(xyz[0]*scale, xyz[1]*scale, xyz[2]*scale);
+			scene.add(text_group);
+		});
+	}
+
+
 
 }
 
