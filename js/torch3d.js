@@ -43,10 +43,10 @@ $(document).ready(function(){
         var text = editor.getValue();
         try {
             var yml = jsyaml.safeLoad(text);
-            // torchModel = new TorchModel(scale, scene);
-            // scene.add(torchModel.renderStructure());
-            // var sb = new Songbook(text, torchModel);
-            // sb.run();
+            torchModel = new TorchModel(scale, scene);
+            scene.add(torchModel.renderStructure());
+            var sb = new Songbook(text, torchModel);
+            sb.run();
         } catch(e) {
             $('#error-modal-text pre').text(e.message);
             $('#error-modal').modal();
