@@ -16,10 +16,16 @@ class Songbook {
 		var wf = [];
 		var self = this
 		_.forEach(measure, (cmd) => {
-			var waitForObj = {done: false, callback: null}
-			var limitCallback = (x) => { waitForObj.done = true; }
-			waitForObj.callback = limitCallback;
-			self.torchModel.edges[cmd.edge].setLimitCallback(limitCallback);
+			var waitForObj;
+			if(!cmd.speed) {
+				waitForObj = {done: true, callback: null};
+			} else {
+				waitForObj = {done: false, callback: null};
+				var limitCallback = (x) => { waitForObj.done = true; }
+				waitForObj.callback = limitCallback;
+				self.torchModel.edges[cmd.edge].setLimitCallback(limitCallback);
+			}
+			
 			wf.push(waitForObj);
 		})
 		return wf;
@@ -71,7 +77,7 @@ class Songbook {
 				measure_num++;
 				m_start = true;
 			}
-			if(!(measure_num > self.songbook.length)) {
+			if(!(measure_num >= self.songbook.length)) {
 				requestAnimationFrame(_animate);
 			}
     		

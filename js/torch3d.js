@@ -33,26 +33,33 @@ scene.add(torchModelRender);
 window.render = function() {
     renderer.render(scene, camera);
 }
-window.render()
 
 $(document).ready(function(){
+    var default_sb = new Songbook(editor.getValue(), torchModel);
+    default_sb.run();
     $("#run-button").click(function() {
+        torchModel.clear();
+
         var text = editor.getValue();
         try {
             var yml = jsyaml.safeLoad(text);
+            // torchModel = new TorchModel(scale, scene);
+            // scene.add(torchModel.renderStructure());
+            // var sb = new Songbook(text, torchModel);
+            // sb.run();
         } catch(e) {
             $('#error-modal-text pre').text(e.message);
             $('#error-modal').modal();
         }
     });
 });
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        var sb = new Songbook(this.responseText, torchModel);
-        sb.run();
-    }
-};
-xhttp.open("GET", "songbooks/test.yaml", true);
-xhttp.send();
+// var xhttp = new XMLHttpRequest();
+// xhttp.onreadystatechange = function() {
+//     if (this.readyState == 4 && this.status == 200) {
+//         var sb = new Songbook(this.responseText, torchModel);
+//         sb.run();
+//     }
+// };
+// xhttp.open("GET", "songbooks/test.yaml", true);
+// xhttp.send();
 

@@ -1,18 +1,30 @@
 - measure:
-  - edge: e0
+  - edge: e6
     flame: 1
-    speed: 50
-  - edge: e1
+    speed: 20
+  - edge: e7
     flame: 1
-    speed: 30
+    speed: 20
+  - edge: e8
+    flame: 1
+    speed: 20
 - measure:
-  - edge: e0
-    speed: 50
-    dir: -1
-    flame: 1
-  - edge: e1
+  - edge: e6
     flame: 0
-  - edge: e2
+    speed: 0
+  - edge: e7
+    flame: 0
+    speed: 0
+  - edge: e8
+    flame: 0
+    speed: 0
+  - edge: e4
+    flame: 1
+    speed: 20
+  - edge: e5
+    flame: 1
+    speed: 20
+  - edge: e6
     flame: 1
     speed: 20
 - measure:

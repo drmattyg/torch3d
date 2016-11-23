@@ -52,7 +52,8 @@ class TorchModel {
 		    this.vertices.v4, this.vertices.v3 // bottom tetrahedron side 2
 		]
 		draw_order.forEach((v) => { geometry.vertices.push(new THREE.Vector3(v[0]*this.scale, v[1]*this.scale, v[2]*this.scale)); });
-		return new THREE.Line(geometry, material);
+		this.renderStructure = new THREE.Line(geometry, material);
+		return this.renderStructure;
     }
 
     edgeList() { 
@@ -70,6 +71,13 @@ class TorchModel {
 
     tick(time) {
     	this.edgeList().forEach((edge) => edge.tick());
+    }
+
+    clear() {
+    	this.edgeList().forEach((edge) => { 
+    		this.scene.remove(edge.flame); 
+    	});
+    	this.scene.remove(this.renderStructure);
     }
 
 }

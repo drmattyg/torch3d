@@ -25,6 +25,7 @@ class Edge {
 		var sphere = new THREE.SphereGeometry( 0.5, 16, 8 );
 		this.flame = new THREE.PointLight( 0xff0040, 2, 50 );
 		this.flame.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
+		this.flame.name = this.flame.uuid;
 
 	}
 
