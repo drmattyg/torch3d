@@ -38,6 +38,7 @@ window.render = function() {
 $(document).ready(function(){
     var sb_yaml = editor.getValue();
     if(window.location.hostname == 'localhost' && window.location.port == 8080) {
+        console.log("THIS IS TEST CODE; YOU SHOULD NOT SEE THIS IN PRODUCTION");
         sb_yaml = $.ajax({
             type: "GET",
             url: "http://localhost:8080/torch3d/songbooks/test1.yaml",
