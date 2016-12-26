@@ -69,38 +69,14 @@ class Songbook {
 
 	run() {
 		var self = this;
-		// var m_start = true;
-		// var cmd_start = true;
 		var cmd_num = 0;
-		// var measure_num = 0;
-		// var measure = null;
-		// var wf = null;
 		var _animate = function(time) {
 			if(time >= self.songbook[cmd_num].start_at) {
-				var current_command = self.songbook[cmd_num];
-				var current_run_time = self.current_command.time
+				var current_command = self.songbook[cmd_num++];
 				self.setEdges(current_command);
-			}
-			if(m_start) {
-
-				wf = [];
-				measure = self.songbook[measure_num].measure
-				self.torchModel.clearCallbacks();
-				wf = self.setCallbacks(measure);
-				self.setEdges(measure);
-				m_start = false;
-
 			}
 			self.torchModel.tick(time);
 			window.render();
-			if(self.allDone(wf)) {
-				measure_num++;
-				m_start = true;
-			}
-			if(!(measure_num >= self.songbook.length)) {
-				requestAnimationFrame(_animate);
-			}
-
     	};
     	requestAnimationFrame(_animate);
 

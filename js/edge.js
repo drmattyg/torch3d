@@ -43,7 +43,7 @@ class Edge {
 /* handles that, the same way it will in the physical sculpture. */
 
 
-	setAutoSpeed(on, trave_time, distance, drive_dir) {
+	setAutoSpeed(on, travel_time, distance, drive_dir) {
 		if(!on) {
 			this.auto_speed = false;
 		} else {
