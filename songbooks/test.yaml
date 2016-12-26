@@ -1,36 +1,21 @@
-- measure:
-  - edge: e6
+- start_at: 0
+  time: 3000
+  measure:
+  - edge: 0
     flame: 1
-    speed: 20
-  - edge: e7
+    drive_dir: 1
+  - edge: 1
     flame: 1
-    speed: 20
-  - edge: e8
+    distance: 0.5
+    drive_dir: 1
+- start_at: 3000
+  time: 3000
+  measure:
+  - edge: 0
+    flame: 0
+    drive_dir: 0
+  - edge: 1
     flame: 1
-    speed: 20
-- measure:
-  - edge: e6
-    flame: 0
-    speed: 0
-  - edge: e7
-    flame: 0
-    speed: 0
-  - edge: e8
-    flame: 0
-    speed: 0
-  - edge: e4
-    flame: 1
-    speed: 20
-  - edge: e5
-    flame: 1
-    speed: 20
-  - edge: e6
-    flame: 1
-    speed: 20
-- measure:
-  - edge: e0
-    flame: 0
-  - edge: e1
-    flame: 0
-  - edge: e2
-    flame: 0
+    drive_dir: -1 # implied distance is 1 if no distance is specified
+                  # speed will be set so assuming that the drive distance is 1
+                  # irrespective of the actual distance traveled

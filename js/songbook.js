@@ -1,11 +1,20 @@
 "use strict"
 var jsyaml = require('js-yaml')
 var _ = require('lodash')
+var MIN_TIME = 1000; // min travel time
 
 class Songbook {
 	constructor(yml, torchModel) {
 		try {
-			this.songbook = jsyaml.safeLoad(yml)
+			this.songbook = jsyaml.safeLoad(yml).sort(function(m1, m2){
+				if(m1.start_at < m2.start_at) {
+					return -1;
+				}
+				if(m1.start_at > m2.start_at) {
+					return 1;
+				}
+				return 0;
+			});
 		} catch(e) {
 			console.log(e)
 		}
@@ -17,6 +26,7 @@ class Songbook {
 		var self = this
 		_.forEach(measure, (cmd) => {
 			var waitForObj;
+
 			if(!cmd.speed) {
 				waitForObj = {done: true, callback: null};
 			} else {
@@ -25,15 +35,17 @@ class Songbook {
 				waitForObj.callback = limitCallback;
 				self.torchModel.edges[cmd.edge].setLimitCallback(limitCallback);
 			}
-			
+
 			wf.push(waitForObj);
 		})
 		return wf;
 	}
 
-	setEdges(measure) {
+	setEdges(command) {
+		/* TODO: need to rewrite this to use autospeed */
 		var self = this;
-		_.forEach(measure, (cmd) => {
+		var command_time = command.time;
+		_.forEach(command.edges, (edge) => {
 			var edge = self.torchModel.edges[cmd.edge];
 			edge.speed = cmd.speed;
 			edge.flame_state = cmd.flame;
@@ -54,15 +66,20 @@ class Songbook {
 
 	run() {
 		var self = this;
-		var m_start = true;
-		var cmd_start = true;
+		// var m_start = true;
+		// var cmd_start = true;
 		var cmd_num = 0;
-		var measure_num = 0;
-		var measure = null;
-		var wf = null;
+		// var measure_num = 0;
+		// var measure = null;
+		// var wf = null;
 		var _animate = function(time) {
-
+			if(time >= self.songbook[cmd_num].start_at) {
+				var current_command = self.songbook[cmd_num];
+				var current_run_time = self.current_command.time
+				self.setEdges(current_command);
+			}
 			if(m_start) {
+
 				wf = [];
 				measure = self.songbook[measure_num].measure
 				self.torchModel.clearCallbacks();
@@ -80,7 +97,7 @@ class Songbook {
 			if(!(measure_num >= self.songbook.length)) {
 				requestAnimationFrame(_animate);
 			}
-    		
+
     	};
     	requestAnimationFrame(_animate);
 

@@ -1,0 +1,9 @@
+- start_at: 0
+  time: 5000
+  edges:
+    - edge: 0
+      flame: 1
+      drive_dir: 1
+    - edge: 1
+      flame: 1
+      drive_dir: 1

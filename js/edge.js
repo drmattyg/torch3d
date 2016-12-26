@@ -10,6 +10,9 @@ var DRIVE_DIRECTION = {
 	REVERSE: -1
 }
 
+// Fuck I've been writing Python for two long, now I have mixed camelCase and
+// snake_case.  MY BRAIN CANNOT DEAL.
+
 class Edge {
 
 	constructor(reverse_vertex, forward_vertex, scale, speed, scene){
@@ -24,9 +27,33 @@ class Edge {
 		this.limit_callback = null;
 		var sphere = new THREE.SphereGeometry( 0.5, 16, 8 );
 		this.flame = new THREE.PointLight( 0xff0040, 2, 50 );
-		this.flame.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
+		this.flame.add( new THREE.Mesh( sphere,
+			new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
 		this.flame.name = this.flame.uuid;
+		this.auto_speed = null;
 
+	}
+
+/* auto_speed automagically moves the flame such that it covers a set distance in
+/* a set amount of time.  In the actual sculpture, we will calculate the max run
+/* speed using a calibration run prior to running the playbook and set the PWM
+/* accordingly.   Here we simply use the absolute time and distance to calculate
+/* the distance to move the flame with each tick.  autoSpeed doesn't care
+/* whether the specified distance is out of bounds; the limit switch callback
+/* handles that, the same way it will in the physical sculpture. */
+
+
+	setAutoSpeed(on, trave_time, distance) {
+		if(!on) {
+			this.auto_speed = false;
+		} else {
+			this.auto_speed = {
+				travel_time: travel_time,
+				start_position: this.relative_position,
+				distance: distance == undefined ? 1 : distance,
+				start_time: null
+			};
+		}
 	}
 
 	setLimitCallback(cb) {
@@ -38,9 +65,9 @@ class Edge {
 		var r = [0, 0, 0];
 		var self = this;
 		[0, 1, 2].forEach(function(n) {
-			r[n] = 
-			self.scale*(self.reverse_vertex[n] + 
-				(self.forward_vertex[n] - 
+			r[n] =
+			self.scale*(self.reverse_vertex[n] +
+				(self.forward_vertex[n] -
 					self.reverse_vertex[n])*(1.0*self.relative_position));
 		})
 		return r;
@@ -63,32 +90,46 @@ class Edge {
 			var pt = this.spatialPosition();
 			this.flame.position.set(pt[0], pt[1], pt[2]);
 			this.scene.add(this.flame);
-		} 
+		}
 		else {
 			this.scene.remove(this.flame);
 		}
 	}
-
-	tick() {
-		if(this.speed > 0) {
-			var new_position = this.relative_position + (this.drive_dir * this.speed/1000);
-			if(new_position <= 0 && this.drive_dir == DRIVE_DIRECTION.REVERSE) {
-				this.relative_position = 0;
-				this.speed = 0;
-				if(this.limit_callback) {
-					this.limit_callback(DRIVE_DIRECTION.REVERSE);
-				}
-				return;
+	/* TODO: add support for autoSpeed */
+	tick(time) {
+		var new_position = null;
+		if(this.auto_speed != null) {
+			if(time == undefined) {
+				throw new Error("Edge.tick requires a time argument if used with auto_speed")
 			}
-
-			if(new_position >= 1 && this.drive_dir == DRIVE_DIRECTION.FORWARD && this.speed > 0) {
-				this.relative_position = 1;
-				this.speed = 0;
-				if(this.limit_callback) {
-					this.limit_callback(DRIVE_DIRECTION.FORWARD);
-				}
-				return;
+			if(this.auto_speed.start_time == null) {
+				this.auto_speed.start_time = time;
 			}
+			new_position = this.auto_speed.distance *
+				(time - this.auto_speed.start_time)/this.auto_speed.travel_time;
+		}
+
+		// legacy code for dealing with explicit speed settings
+		// else if(this.speed > 0) {
+		// 	new_position = this.relative_position + (this.drive_dir * this.speed/1000);
+		// }
+
+		// check for limit conditions
+		if(new_position <= 0 && this.drive_dir == DRIVE_DIRECTION.REVERSE) {
+			this.relative_position = 0;
+			this.speed = 0;
+			if(this.limit_callback) {
+				this.limit_callback(DRIVE_DIRECTION.REVERSE);
+			}
+		}
+
+		else if(new_position >= 1 && this.drive_dir == DRIVE_DIRECTION.FORWARD && this.speed > 0) {
+			this.relative_position = 1;
+			this.speed = 0;
+			if(this.limit_callback) {
+				this.limit_callback(DRIVE_DIRECTION.FORWARD);
+			}
+		} else {
 			this.relative_position = new_position;
 		}
 		this.renderFlame()
