@@ -6,6 +6,7 @@ var TorchScene = require('./scene.js')
 var renderer = new THREE.WebGLRenderer();
 var container = document.getElementById('torch');
 var jsyaml = require('js-yaml');
+var fs = require('fs');
 //document.body.appendChild( container );
 
 renderer.setSize(300, 600);
@@ -35,7 +36,15 @@ window.render = function() {
 }
 
 $(document).ready(function(){
-    var default_sb = new Songbook(editor.getValue(), torchModel);
+    var sb_yaml = editor.getValue();
+    if(window.location.hostname == 'localhost' && window.location.port == 8080) {
+        sb_yaml = $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/torch3d/songbooks/test1.yaml",
+            async: false
+            }).responseText;
+    } 
+    var default_sb = new Songbook(sb_yaml, torchModel);
     default_sb.run();
     $("#run-button").click(function() {
         torchModel.clear();
