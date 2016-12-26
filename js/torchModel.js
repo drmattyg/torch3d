@@ -38,7 +38,7 @@ class TorchModel {
     	this.edges.forEach((edge) => { edge.speed = 0; })
     }
 
-    renderStructure() { 
+    renderStructure() {
 		var material = new THREE.LineBasicMaterial({
 			color: 0x00ffff, linewidth: 3
 		});
@@ -56,7 +56,7 @@ class TorchModel {
 		return this.renderStructure;
     }
 
-    edgeList() { 
+    edgeList() {
     	var self = this;
     	return Object.keys(self.edges).map((k) => self.edges[k])
 
@@ -64,18 +64,18 @@ class TorchModel {
 
     clearCallbacks() {
     	var self = this;
-    	self.edgeList().forEach((edge) => { 
+    	self.edgeList().forEach((edge) => {
     		edge.setLimitCallback(null);
     	})
     }
 
     tick(time) {
-    	this.edgeList().forEach((edge) => edge.tick());
+    	this.edgeList().forEach((edge) => edge.tick(time));
     }
 
     clear() {
-    	this.edgeList().forEach((edge) => { 
-    		this.scene.remove(edge.flame); 
+    	this.edgeList().forEach((edge) => {
+    		this.scene.remove(edge.flame);
     	});
     	this.scene.remove(this.renderStructure);
     }

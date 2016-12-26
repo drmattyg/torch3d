@@ -95,7 +95,7 @@ class Edge {
 			this.scene.remove(this.flame);
 		}
 	}
-	/* TODO: add support for autoSpeed */
+
 	tick(time) {
 		var new_position = null;
 		if(this.auto_speed != null) {
