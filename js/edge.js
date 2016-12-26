@@ -118,7 +118,7 @@ class Edge {
 		// check for limit conditions
 		if(new_position <= 0 && this.drive_dir == DRIVE_DIRECTION.REVERSE) {
 			this.relative_position = 0;
-			this.speed = 0;
+			this.auto_speed = null;
 			if(this.limit_callback) {
 				this.limit_callback(DRIVE_DIRECTION.REVERSE);
 			}
@@ -126,7 +126,7 @@ class Edge {
 
 		else if(new_position >= 1 && this.drive_dir == DRIVE_DIRECTION.FORWARD && this.speed > 0) {
 			this.relative_position = 1;
-			this.speed = 0;
+			this.auto_speed = null;
 			if(this.limit_callback) {
 				this.limit_callback(DRIVE_DIRECTION.FORWARD);
 			}
