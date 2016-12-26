@@ -2,7 +2,7 @@
 var jsyaml = require('js-yaml')
 var _ = require('lodash')
 var MIN_TIME = 1000; // min travel time
-
+print = console.log;
 class Songbook {
 	constructor(yml, torchModel) {
 		try {
@@ -71,12 +71,13 @@ class Songbook {
 		var self = this;
 		var cmd_num = 0;
 		var _animate = function(time) {
-			if(time >= self.songbook[cmd_num].start_at) {
+			if(cmd_num <= self.songbook.length - 1 && time >= self.songbook[cmd_num].start_at) {
 				var current_command = self.songbook[cmd_num++];
 				self.setEdges(current_command);
 			}
 			self.torchModel.tick(time);
 			window.render();
+			requestAnimationFrame(_animate);
     	};
     	requestAnimationFrame(_animate);
 

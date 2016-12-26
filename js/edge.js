@@ -9,7 +9,7 @@ var DRIVE_DIRECTION = {
 	FORWARD: 1,
 	REVERSE: -1
 }
-
+print = console.log;
 // Fuck I've been writing Python for two long, now I have mixed camelCase and
 // snake_case.  MY BRAIN CANNOT DEAL.
 
@@ -106,6 +106,7 @@ class Edge {
 			if(this.auto_speed.start_time == null) {
 				this.auto_speed.start_time = time;
 			}
+			this.drive_dir = this.auto_speed.drive_dir;
 			new_position = this.auto_speed.distance * this.auto_speed.drive_dir *
 				(time - this.auto_speed.start_time)/this.auto_speed.travel_time;
 		}
