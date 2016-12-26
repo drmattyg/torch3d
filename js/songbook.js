@@ -6,7 +6,11 @@ var MIN_TIME = 1000; // min travel time
 class Songbook {
 	constructor(yml, torchModel) {
 		try {
-			this.songbook = jsyaml.safeLoad(yml).sort(function(m1, m2){
+			var parsed = jsyaml.safeLoad(yml);
+			if(!parsed.version == 1.0) {
+				throw new Error("Only version 1.0 songbooks supported")
+			}
+			this.songbook = parsed.songbook.sort(function(m1, m2){
 				if(m1.start_at < m2.start_at) {
 					return -1;
 				}
@@ -42,14 +46,13 @@ class Songbook {
 	}
 
 	setEdges(command) {
-		/* TODO: need to rewrite this to use autospeed */
 		var self = this;
-		var command_time = command.time;
-		_.forEach(command.edges, (edge) => {
-			var edge = self.torchModel.edges[cmd.edge];
-			edge.speed = cmd.speed;
-			edge.flame_state = cmd.flame;
-			if(cmd.dir) { edge.drive_dir = cmd.dir; }
+		_.forEach(command.edges, (e) => {
+			var edge = self.torchModel.edges["e" + e.edge];
+			edge.flame_state = e.flame;
+			var distance = e.distance ? e.distance : 1.0;
+			var drive_dir = e.dir ? e.dir : 1;
+			edge.setAutoSpeed(true, command.time, distance, drive_dir);
 		});
 
 	}
