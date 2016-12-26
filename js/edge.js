@@ -43,7 +43,7 @@ class Edge {
 /* handles that, the same way it will in the physical sculpture. */
 
 
-	setAutoSpeed(on, trave_time, distance) {
+	setAutoSpeed(on, trave_time, distance, drive_dir) {
 		if(!on) {
 			this.auto_speed = false;
 		} else {
@@ -51,6 +51,7 @@ class Edge {
 				travel_time: travel_time,
 				start_position: this.relative_position,
 				distance: distance == undefined ? 1 : distance,
+				drive_dir: drive_dir,
 				start_time: null
 			};
 		}
@@ -105,7 +106,7 @@ class Edge {
 			if(this.auto_speed.start_time == null) {
 				this.auto_speed.start_time = time;
 			}
-			new_position = this.auto_speed.distance *
+			new_position = this.auto_speed.distance * this.auto_speed.drive_dir *
 				(time - this.auto_speed.start_time)/this.auto_speed.travel_time;
 		}
 
