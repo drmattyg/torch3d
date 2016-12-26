@@ -132,7 +132,9 @@ class Edge {
 				this.limit_callback(DRIVE_DIRECTION.FORWARD);
 			}
 		} else {
-			this.relative_position = new_position;
+			if(new_position) {
+				this.relative_position = new_position;
+			}
 		}
 		this.renderFlame()
 	}
