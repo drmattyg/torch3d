@@ -62,17 +62,20 @@ class Edge {
 		this.limit_callback = cb;
 	}
 
-	spatialPosition() {
-		var p = (x0, x1, f) => { return x0 + (x1 - x0)*f; }
+	computeSpatialPosition(rel_pos) {
 		var r = [0, 0, 0];
 		var self = this;
 		[0, 1, 2].forEach(function(n) {
 			r[n] =
 			self.scale*(self.reverse_vertex[n] +
 				(self.forward_vertex[n] -
-					self.reverse_vertex[n])*(1.0*self.relative_position));
+					self.reverse_vertex[n])*(1.0*rel_pos));
 		})
 		return r;
+	}
+
+	spatialPosition() {
+		return this.computeSpatialPosition(this.relative_position);
 	}
 
 	get limitReverse() {
@@ -153,7 +156,20 @@ class Edge {
 		var font_loader = new THREE.FontLoader();
 		var font = null
 		font_loader.load('fonts/droid_sans_bold.typeface.json', function(font) {
-			var text_geo = new THREE.TextGeometry(text, {font: font, size: 1, height: 0.1})
+			console.log(font);
+			console.log(xyz);
+			var text_geo = new THREE.TextGeometry(text, 
+				{font: font, size: 1*this.scale, height: 0.1*this.scale,
+					weight: "bold", style: "normal",
+				            hover: 30,
+
+            curveSegments: 4,
+
+            bevelThickness: 2,
+            bevelSize: 1.5,
+            bevelSegments: 3,
+            bevelEnabled: true}
+			)
 			var text_mesh = new THREE.Mesh(text_geo, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) )
 			var text_group = new THREE.Group();
 			text_group.add(text_mesh);
