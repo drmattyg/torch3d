@@ -155,26 +155,33 @@ class Edge {
 	addEdgeLabel(scene, text, xyz) {
 		var font_loader = new THREE.FontLoader();
 		var font = null
+		var self = this;
+		xyz = self.forward_vertex;
 		font_loader.load('fonts/droid_sans_bold.typeface.json', function(font) {
 			console.log(font);
 			console.log(xyz);
 			var text_geo = new THREE.TextGeometry(text, 
-				{font: font, size: 1*this.scale, height: 0.1*this.scale,
+				{font: font, size: 1, height: 0.1,
 					weight: "bold", style: "normal",
 				            hover: 30,
 
             curveSegments: 4,
 
-            bevelThickness: 2,
-            bevelSize: 1.5,
-            bevelSegments: 3,
-            bevelEnabled: true}
+            // bevelThickness: 2,
+            // bevelSize: 1.5,
+            // bevelSegments: 3,
+            // bevelEnabled: true
+        }
 			)
+			console.log(text_geo);
 			var text_mesh = new THREE.Mesh(text_geo, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) )
-			var text_group = new THREE.Group();
-			text_group.add(text_mesh);
-			text_group.position.set(xyz[0]*scale, xyz[1]*scale, xyz[2]*scale);
-			scene.add(text_group);
+			// var text_group = new THREE.Group();
+			// text_group.add(text_mesh);
+			// text_group.position.set(xyz[0]*self.scale, xyz[1]*self.scale, xyz[2]*self.scale);
+			text_mesh.position.set(xyz[0]*self.scale, xyz[1]*self.scale, xyz[2]*self.scale);
+			// scene.add(text_group);
+			scene.add(text_mesh);
+
 		});
 	}
 

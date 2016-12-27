@@ -13,6 +13,7 @@ renderer.setSize(300, 600);
 //document.body.appendChild(renderer.domElement);
 container.appendChild( renderer.domElement );
 var camera = new THREE.PerspectiveCamera(45, 0.5, 1, 500);
+// camera.position.set(5, 20, 50);
 camera.position.set(5, 20, 50);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 var scene = new THREE.Scene();
@@ -30,6 +31,11 @@ var torchModel = new TorchModel(scale, scene);
 var torchModelRender = torchModel.renderStructure()
 scene.add(torchModelRender);
 
+// testing
+var e6 = torchModel.edges['e1']
+var xyz = e6.computeSpatialPosition(0);
+e6.addEdgeLabel(scene, 'e6', xyz);
+// testing
 
 window.render = function() {
     renderer.render(scene, camera);
