@@ -24,7 +24,7 @@ songbook:
       - edge: 6
         flame: 1
         dir: -1
-        #  distance: 0.5
+        distance: 0.5
         # - edge: 7
         #   flame: 0
         # - edge: 8

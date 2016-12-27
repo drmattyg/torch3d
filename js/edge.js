@@ -107,9 +107,15 @@ class Edge {
 			if(this.auto_speed.start_time == null) {
 				this.auto_speed.start_time = time;
 			}
+			var time_offset = time - this.auto_speed.start_time;
 			this.drive_dir = this.auto_speed.drive_dir;
 			new_position = this.auto_speed.start_position + this.auto_speed.distance * this.auto_speed.drive_dir *
-				(time - this.auto_speed.start_time)/this.auto_speed.travel_time;
+				time_offset/this.auto_speed.travel_time;
+
+			// shut it down when it hits the time point
+			if(time_offset >= this.auto_speed.travel_time) {
+				this.auto_speed = null;
+			}
 
 		}
 
