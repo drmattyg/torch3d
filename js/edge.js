@@ -52,7 +52,8 @@ class Edge {
 				start_position: this.relative_position,
 				distance: distance == undefined ? 1 : distance,
 				drive_dir: drive_dir,
-				start_time: null
+				start_time: null,
+				start_position: this.relative_position
 			};
 		}
 	}
@@ -107,8 +108,9 @@ class Edge {
 				this.auto_speed.start_time = time;
 			}
 			this.drive_dir = this.auto_speed.drive_dir;
-			new_position = this.auto_speed.distance * this.auto_speed.drive_dir *
+			new_position = this.auto_speed.start_position + this.auto_speed.distance * this.auto_speed.drive_dir *
 				(time - this.auto_speed.start_time)/this.auto_speed.travel_time;
+
 		}
 
 		// legacy code for dealing with explicit speed settings

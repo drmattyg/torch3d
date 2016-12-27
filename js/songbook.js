@@ -76,8 +76,9 @@ class Songbook {
 				self.startTime = time;
 			}
 			var currTime = time - self.startTime;
-			if(cmd_num <= self.songbook.length - 1 && currTime >= self.songbook[cmd_num].start_at) {
+			while(cmd_num <= self.songbook.length - 1 && currTime >= self.songbook[cmd_num].start_at) {
 				var current_command = self.songbook[cmd_num++];
+				print(current_command);
 				self.setEdges(current_command);
 			}
 			self.torchModel.tick(currTime);
