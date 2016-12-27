@@ -41,7 +41,7 @@ $(document).ready(function(){
         console.log("THIS IS TEST CODE; YOU SHOULD NOT SEE THIS IN PRODUCTION");
         sb_yaml = $.ajax({
             type: "GET",
-            url: "http://localhost:8080/torch3d/songbooks/test1.yaml",
+            url: "http://localhost:8080/torch3d/songbooks/test2.yaml",
             async: false
             }).responseText;
     } 

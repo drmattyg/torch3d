@@ -23,6 +23,7 @@ class Songbook {
 			console.log(e)
 		}
 		this.torchModel = torchModel
+		this.startTime = null;
 	}
 
 	setCallbacks(measure) {
@@ -71,11 +72,15 @@ class Songbook {
 		var self = this;
 		var cmd_num = 0;
 		var _animate = function(time) {
-			if(cmd_num <= self.songbook.length - 1 && time >= self.songbook[cmd_num].start_at) {
+			if(self.startTime == null) {
+				self.startTime = time;
+			}
+			var currTime = time - self.startTime;
+			if(cmd_num <= self.songbook.length - 1 && currTime >= self.songbook[cmd_num].start_at) {
 				var current_command = self.songbook[cmd_num++];
 				self.setEdges(current_command);
 			}
-			self.torchModel.tick(time);
+			self.torchModel.tick(currTime);
 			window.render();
 			requestAnimationFrame(_animate);
     	};

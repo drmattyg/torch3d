@@ -1,7 +1,7 @@
 version: 1.0
 songbook:
   - start_at: 0
-    time: 5000
+    time: 3000
     edges:
       - edge: 0
         flame: 1

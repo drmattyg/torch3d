@@ -12,7 +12,7 @@ var DRIVE_DIRECTION = {
 print = console.log;
 // Fuck I've been writing Python for two long, now I have mixed camelCase and
 // snake_case.  MY BRAIN CANNOT DEAL.
-
+// TODO: Test more cases with more commands; fix edge labels; fix up website; add music; write a good demo; DOCUMENT
 class Edge {
 
 	constructor(reverse_vertex, forward_vertex, scale, speed, scene){
