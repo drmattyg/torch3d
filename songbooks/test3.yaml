@@ -1,0 +1,16 @@
+version: 1.0
+songbook:
+  - start_at: 0
+    time: 1000
+    edges:
+      - edge: 6
+        flame: 1
+        dir: 1
+        distance: 1
+  - start_at: 1500
+    time: 1000
+    edges:
+      - edge: 6
+        flame: 1
+        dir: -1
+        distance: 0.5

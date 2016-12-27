@@ -117,31 +117,32 @@ class Edge {
 				this.auto_speed = null;
 			}
 
-		}
 
-		// legacy code for dealing with explicit speed settings
-		// else if(this.speed > 0) {
-		// 	new_position = this.relative_position + (this.drive_dir * this.speed/1000);
-		// }
+			// legacy code for dealing with explicit speed settings
+			// else if(this.speed > 0) {
+			// 	new_position = this.relative_position + (this.drive_dir * this.speed/1000);
+			// }
 
-		// check for limit conditions
-		if(new_position <= 0 && this.drive_dir == DRIVE_DIRECTION.REVERSE) {
-			this.relative_position = 0;
-			this.auto_speed = null;
-			if(this.limit_callback) {
-				this.limit_callback(DRIVE_DIRECTION.REVERSE);
+			// check for limit conditions
+
+			if(new_position <= 0 && this.drive_dir == DRIVE_DIRECTION.REVERSE) {
+				this.relative_position = 0;
+				this.auto_speed = null;
+				if(this.limit_callback) {
+					this.limit_callback(DRIVE_DIRECTION.REVERSE);
+				}
 			}
-		}
 
-		else if(new_position >= 1 && this.drive_dir == DRIVE_DIRECTION.FORWARD && this.speed > 0) {
-			this.relative_position = 1;
-			this.auto_speed = null;
-			if(this.limit_callback) {
-				this.limit_callback(DRIVE_DIRECTION.FORWARD);
-			}
-		} else {
-			if(new_position) {
-				this.relative_position = new_position;
+			else if(new_position >= 1 && this.drive_dir == DRIVE_DIRECTION.FORWARD && this.speed > 0) {
+				this.relative_position = 1;
+				this.auto_speed = null;
+				if(this.limit_callback) {
+					this.limit_callback(DRIVE_DIRECTION.FORWARD);
+				}
+			} else {
+				if(new_position) {
+					this.relative_position = new_position;
+				}
 			}
 		}
 		this.renderFlame()
