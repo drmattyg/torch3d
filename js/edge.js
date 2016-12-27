@@ -15,7 +15,8 @@ print = console.log;
 // TODO: Test more cases with more commands; fix edge labels; fix up website; add music; write a good demo; DOCUMENT
 class Edge {
 
-	constructor(reverse_vertex, forward_vertex, scale, speed, scene){
+	constructor(name, reverse_vertex, forward_vertex, scale, speed, scene){
+		this.name = name;
 		this.reverse_vertex = reverse_vertex;
 		this.forward_vertex = forward_vertex;
 		this.speed = speed;
@@ -31,6 +32,7 @@ class Edge {
 			new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
 		this.flame.name = this.flame.uuid;
 		this.auto_speed = null;
+		this.generateEdgeLabel();
 
 	}
 
@@ -151,19 +153,20 @@ class Edge {
 		this.renderFlame()
 	}
 
-	// this doesn't work quite right, just moved over the unfinished example code from torch3d.js
-	addEdgeLabel(scene, text, xyz) {
+	generateEdgeLabel() {
 		var font_loader = new THREE.FontLoader();
 		var font = null
 		var self = this;
-		xyz = self.forward_vertex;
+		// TODO: replace this with my own relative position calculation and remove the scale factor from the position setting below
+		var xyz = self.computeSpatialPosition(0.5);
 		font_loader.load('fonts/droid_sans_bold.typeface.json', function(font) {
-			var text_geo = new THREE.TextGeometry(text, 
+			var text_geo = new THREE.TextGeometry(self.name, 
 				{font: font, size: 1, height: 0.2});
-			var text_mesh = new THREE.Mesh(text_geo, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) )
-			text_mesh.position.set(xyz[0]*self.scale, xyz[1]*self.scale, xyz[2]*self.scale);
-			scene.add(text_mesh);
-
+			var material = new THREE.MeshBasicMaterial( { color: 0xf2e12b, wireframe: true } );
+			var text_mesh = new THREE.Mesh(text_geo,  material);
+			text_mesh.position.set(xyz[0], xyz[1], xyz[2]);
+			self.scene.add(text_mesh);
+			self.edge_label = text_mesh;
 		});
 	}
 

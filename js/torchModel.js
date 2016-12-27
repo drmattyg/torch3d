@@ -20,15 +20,15 @@ class TorchModel {
         	self.vertices[k] = xyz;
         })
         this.edges = {
-        	e0: new Edge(this.vertices.v1, this.vertices.v0, scale, this.speed, this.scene),
-        	e1: new Edge(this.vertices.v2, this.vertices.v0, scale, this.speed, this.scene),
-        	e2: new Edge(this.vertices.v3, this.vertices.v0, scale, this.speed, this.scene),
-        	e3: new Edge(this.vertices.v1, this.vertices.v2, scale, this.speed, this.scene),
-        	e4: new Edge(this.vertices.v2, this.vertices.v3, scale, this.speed, this.scene),
-        	e5: new Edge(this.vertices.v3, this.vertices.v1, scale, this.speed, this.scene),
-        	e6: new Edge(this.vertices.v4, this.vertices.v1, scale, this.speed, this.scene),
-        	e7: new Edge(this.vertices.v4, this.vertices.v2, scale, this.speed, this.scene),
-        	e8: new Edge(this.vertices.v4, this.vertices.v3, scale, this.speed, this.scene)
+        	e0: new Edge('0', this.vertices.v1, this.vertices.v0, scale, this.speed, this.scene),
+        	e1: new Edge('1', this.vertices.v2, this.vertices.v0, scale, this.speed, this.scene),
+        	e2: new Edge('2', this.vertices.v3, this.vertices.v0, scale, this.speed, this.scene),
+        	e3: new Edge('3', this.vertices.v1, this.vertices.v2, scale, this.speed, this.scene),
+        	e4: new Edge('4', this.vertices.v2, this.vertices.v3, scale, this.speed, this.scene),
+        	e5: new Edge('5', this.vertices.v3, this.vertices.v1, scale, this.speed, this.scene),
+        	e6: new Edge('6', this.vertices.v4, this.vertices.v1, scale, this.speed, this.scene),
+        	e7: new Edge('7', this.vertices.v4, this.vertices.v2, scale, this.speed, this.scene),
+        	e8: new Edge('8', this.vertices.v4, this.vertices.v3, scale, this.speed, this.scene)
         }
 
     }

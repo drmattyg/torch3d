@@ -31,12 +31,6 @@ var torchModel = new TorchModel(scale, scene);
 var torchModelRender = torchModel.renderStructure()
 scene.add(torchModelRender);
 
-// testing
-var e6 = torchModel.edges['e1']
-var xyz = e6.computeSpatialPosition(0);
-e6.addEdgeLabel(scene, 'e6', xyz);
-// testing
-
 window.render = function() {
     renderer.render(scene, camera);
 }
