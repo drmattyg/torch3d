@@ -80,7 +80,8 @@
 
   /* Add gap to nav and right windows.*/
   .main{
-    padding: 10px 10px 0 10px;
+   // padding: 10px 10px 0 10px;
+    height: 100%;
   }
 
   /* .....NavBar: Icon only with coloring/layout.....*/
@@ -92,7 +93,7 @@
     .main{
       position: absolute;
       width: calc(100% - 40px); /*keeps 100% minus nav size*/
-      margin-left: 40px;
+   //   margin-left: 40px;  mpg test
       float: right;
     }
 
