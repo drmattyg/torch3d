@@ -1,0 +1,15 @@
+#torch { width:300px; height: 600px; 
+	border: 1px solid black;
+	margin: 10px;
+	padding: 0px;
+}
+#editor { 
+	height: 500px;
+	margin: 10px;
+	border: 1px solid black;
+/*				position: relative;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;*/
+}

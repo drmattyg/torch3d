@@ -1,40 +1,113 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset=utf-8>
-		<title>Torch3D</title>
-		<style>
-			body { margin: 0; background-color: black; }
-			#torch { width:300px; height: 600px; 
-				border: 1px solid black;
-				margin: 10px;
-				padding: 0px;
-			}
-			#editor { 
-				height: 500px;
-				margin: 10px;
-				border: 1px solid black;
-/*				position: relative;
-				top: 0;
-				right: 0;
-				bottom: 0;
-				left: 0;*/
-			}
-		</style>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.js"></script>
+<html lang="en">
 
-	</head>
-	<body>
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-6" id="torch" style="max-width:50%; border-style=">
-				</div>
-				<h2>Program editor (try me!)</h2>
-				<div class="col-xs-6" style="width:50%">
-				<div id="editor">- measure:
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="css/torch3d.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+<!--nav sidebar -->
+<aside>
+  <nav class="navbar navbar-inverse sidebar navbar-fixed-top" role="navigation">
+
+<div class="nav-side-menu">
+    <div class="brand">Hydrocarbon Collective</div>
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+  
+        <div class="menu-list">
+  
+            <ul id="menu-content" class="menu-content collapse out">
+                <li>
+                  <a href="#">
+                  <i class="fa fa-cog fa-lg"></i> Settings <i class="fa fa-cog fa-lg btn pull-right" style="margin-top:5px"></i>
+                  </a>
+                </li>
+
+<!--                 <li  data-toggle="collapse" data-target="#products" class="collapsed active">
+                  <a href="#"><i class="fa fa-gift fa-lg"></i> UI Elements  <i class="fa fa-gift fa-lg btn pull-right" style="margin-top:5px"></i></a>
+                </li>
+                <ul class="sub-menu collapse" id="products">
+                    <li class="active"><a href="#">CSS3 Animation</a></li>
+                    <li><a href="#">General</a></li>
+                    <li><a href="#">Buttons</a></li>
+                    <li><a href="#">Tabs & Accordions</a></li>
+                    <li><a href="#">Typography</a></li>
+                    <li><a href="#">FontAwesome</a></li>
+                    <li><a href="#">Slider</a></li>
+                    <li><a href="#">Panels</a></li>
+                    <li><a href="#">Widgets</a></li>
+                    <li><a href="#">Bootstrap Model</a></li>
+                </ul>
+
+
+                <li data-toggle="collapse" data-target="#service" class="collapsed">
+                  <a href="#"><i class="fa fa-globe fa-lg"></i> Services <span class="arrow"></span></a>
+                </li>  
+                <ul class="sub-menu collapse" id="service">
+                  <li>New Service 1</li>
+                  <li>New Service 2</li>
+                  <li>New Service 3</li>
+                </ul>
+
+
+                <li data-toggle="collapse" data-target="#new" class="collapsed">
+                  <a href="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="new">
+                  <li>New New 1</li>
+                  <li>New New 2</li>
+                  <li>New New 3</li>
+                </ul>
+
+
+                 <li>
+                  <a href="#">
+                  <i class="fa fa-user fa-lg"></i> Profile
+                  </a>
+                  </li>
+
+                 <li>
+                  <a href="#">
+                  <i class="fa fa-users fa-lg"></i> Users
+                  </a>
+                </li> -->
+            </ul>
+     </div>
+</div>
+  </nav>
+  
+</aside>
+
+<div class="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6" id="torch" style="max-width:50%; border-style=">
+            </div>
+            <h2>Program editor (try me!)</h2>
+            <div class="col-xs-6" style="width:50%">
+            <div id="editor">- measure:
   - edge: e6
     flame: 1
     speed: 10
@@ -95,43 +168,53 @@
     flame: 0
     speed: 100
     dir: -1
-				</div>
-				<button class="btn-primary" id="run-button">Run</button>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-6" style="width: 300px">
-				</div>
-				<div class="col-xs-6" style="width: 50%; padding-left: 30px">
-					
-				</div>
+            </div>
+            <button class="btn-primary" id="run-button">Run</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6" style="width: 300px">
+            </div>
+            <div class="col-xs-6" style="width: 50%; padding-left: 30px">
+                
+            </div>
 
 
-				</div>
-			</div>
-		</div>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js"></script>
-		<script src="build/bundle.js"></script>
-		<div id="error-modal" class="modal fade" role="dialog">
-			<div class="modal-dialog  modal-lg">
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js"></script>
+    <script src="build/bundle.js"></script>
+    <div id="error-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog  modal-lg">
 
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Songbook Parse Error</h4>
-					</div>
-					<div class="modal-body" id="error-modal-text">
-					<b>Error:</b><p>
-						<pre></pre>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Songbook Parse Error</h4>
+                </div>
+                <div class="modal-body" id="error-modal-text">
+                <b>Error:</b><p>
+                    <pre></pre>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
 
-			</div>
-		</div>		
+        </div>
+    </div>      
+</div>
 
-	</body>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.js"></script>
+<script src="js/responsive_layout.js">
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js"></script>
+<script src="build/bundle.js"></script>
+
 </html>
