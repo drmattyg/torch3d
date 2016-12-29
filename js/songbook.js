@@ -4,6 +4,8 @@ var _ = require('lodash')
 var MIN_TIME = 1000; // min travel time
 var print = console.log;
 
+var BLANK_SONGBOOK_YAML = "version: 1.0\nsongbook:\n - start at: 0\n   time: 1\n   edges: []\n"
+
 class Songbook {
 	constructor(yml, torchModel) {
 		try {
@@ -90,6 +92,7 @@ class Songbook {
 	}
 
 
-
 }
+
+Songbook.BLANK_SONGBOOK = (torchModel) => new Songbook(BLANK_SONGBOOK_YAML, torchModel);
 module.exports = Songbook;

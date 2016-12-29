@@ -39,9 +39,7 @@ window.render = function() {
 
 $(document).ready(function(){
     editorControl.loadSample('test2');
-    editorControl.getSample('blank', (resp) => {
-        (new Songbook(resp, torchModel)).run();
-    })
+    Songbook.BLANK_SONGBOOK(torchModel).run();
     $("#run-button").click(function() {
         scene.remove(torch.renderStructure)
         var torchModel = new TorchModel(scale, scene);
@@ -60,7 +58,8 @@ $(document).ready(function(){
     });
     // for testing
     $("#clear-button").click(function() {
-        torchModel.clear();
+        torchModel.delete();
+        Songbook.BLANK_SONGBOOK(torchModel).run()
     });
 });
 // var xhttp = new XMLHttpRequest();
