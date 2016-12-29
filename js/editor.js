@@ -11,8 +11,12 @@ var	getSample = function(name, callback) {
 		}
 	})
 }
-var	loadSample = function(name) {
-	getSample(name, (resp) => window.editor.setValue(resp, 1) );
+var	loadSample = function(name, callback) {
+	getSample(name, (resp) => {
+		window.editor.setValue(resp, 1);
+		window.editor.scrollToLine(0, false, false, () => {});
+		callback();
+	});
 }
 
 

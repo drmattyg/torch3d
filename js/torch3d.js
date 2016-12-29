@@ -56,11 +56,7 @@ $(document).ready(function(){
     $("[name='show-edge-labels']").on('switchChange.bootstrapSwitch', (event, state) => {
         torchModel.showEdgeLabels(state);
     });
-    editorControl.getSample('song_for_diana', (resp) => {
-        editor.setValue(resp, 1);
-        editor.scrollToLine(0, false, false, ()=> {});
-        runEditorSongbook();
-    });
+    editorControl.loadSample('song_for_diana', runEditorSongbook);
     $("#run-button").click(function() {
         window.current_songbook.stop();
         runEditorSongbook();
