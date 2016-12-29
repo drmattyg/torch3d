@@ -50,6 +50,7 @@ function runEditorSongbook() {
         $('#error-modal').modal();
     }
 }
+var examples = ['song_for_diana'];
 
 $(document).ready(function(){
     $("[name='show-edge-labels']").bootstrapSwitch();
@@ -67,6 +68,12 @@ $(document).ready(function(){
         window.current_songbook.run();
         window.editor.setValue("", 1);
     });
+    examples.forEach((example)=> {
+        $("#" + example).click((event) => {
+            window.current_songbook.stop();
+            editorControl.loadSample('song_for_diana', runEditorSongbook);
+        })
+    })
 });
 // var xhttp = new XMLHttpRequest();
 // xhttp.onreadystatechange = function() {
