@@ -27,6 +27,7 @@ class Songbook {
 		}
 		this.torchModel = torchModel
 		this.startTime = null;
+		this.run_animation = false;
 	}
 
 	setCallbacks(measure) {
@@ -61,11 +62,6 @@ class Songbook {
 
 	}
 
-	clearEdges() {
-		self = this;
-		_.forEach()
-	}
-
 	allDone(wf) {
 		var states = _.map(wf, function(w) { return !w.done; })
 		return !_.find(states)
@@ -73,23 +69,31 @@ class Songbook {
 
 	run() {
 		var self = this;
+		self.run_animation = true;
 		var cmd_num = 0;
 		var _animate = function(time) {
-			if(self.startTime == null) {
-				self.startTime = time;
+			if(self.run_animation) {
+				if(self.startTime == null) {
+					self.startTime = time;
+				}
+				var currTime = time - self.startTime;
+				while(cmd_num <= self.songbook.length - 1 && currTime >= self.songbook[cmd_num].start_at) {
+					var current_command = self.songbook[cmd_num++];
+					self.setEdges(current_command);
+				}
+				self.torchModel.tick(currTime);
 			}
-			var currTime = time - self.startTime;
-			while(cmd_num <= self.songbook.length - 1 && currTime >= self.songbook[cmd_num].start_at) {
-				var current_command = self.songbook[cmd_num++];
-				self.setEdges(current_command);
-			}
-			self.torchModel.tick(currTime);
 			window.render();
 			requestAnimationFrame(_animate);
     	};
     	requestAnimationFrame(_animate);
-
 	}
+
+    stop() { 
+    	this.torchModel.delete();
+    	this.run_animation = false; 
+    }
+
 
 
 }

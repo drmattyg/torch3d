@@ -39,7 +39,8 @@ window.render = function() {
 
 $(document).ready(function(){
     editorControl.loadSample('test2');
-    Songbook.BLANK_SONGBOOK(torchModel).run();
+    window.current_songbook = Songbook.BLANK_SONGBOOK(torchModel);
+    window.current_songbook.run();
     $("#run-button").click(function() {
         scene.remove(torch.renderStructure)
         var torchModel = new TorchModel(scale, scene);
@@ -49,8 +50,8 @@ $(document).ready(function(){
         try {
             var yml = jsyaml.safeLoad(text);
 //            torchModel = new TorchModel(scale, scene);
-            var sb = new Songbook(text, torchModel);
-            sb.run();
+            window.current_songbook = new Songbook(text, torchModel);
+            window.current_songbook.run();
         } catch(e) {
             $('#error-modal-text pre').text(e.message);
             $('#error-modal').modal();
@@ -58,8 +59,9 @@ $(document).ready(function(){
     });
     // for testing
     $("#clear-button").click(function() {
-        torchModel.delete();
-        Songbook.BLANK_SONGBOOK(torchModel).run()
+        window.current_songbook.stop();        
+        window.current_songbook = Songbook.BLANK_SONGBOOK(torchModel);
+        window.current_songbook.run();
     });
 });
 // var xhttp = new XMLHttpRequest();

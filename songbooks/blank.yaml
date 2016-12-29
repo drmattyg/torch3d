@@ -1,0 +1,8 @@
+version: 1.0
+songbook:
+  - start_at: 0
+    time: 100
+    edges:
+      - edge: 0
+        flame: 0
+        dir: 1

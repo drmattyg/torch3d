@@ -177,7 +177,7 @@ class Edge {
 
 	delete() {
 		this.setFlameState(false);
-		this.scene.remove(this.edge_label);
+		//this.scene.remove(this.edge_label);
 	}
 
 
