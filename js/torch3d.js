@@ -39,6 +39,9 @@ window.render = function() {
 
 $(document).ready(function(){
     editorControl.loadSample('test2');
+    scene.add(torchModel.getRenderStructure());
+    window.render();
+    // todo: move the animation loop out here?
     $("#run-button").click(function() {
         torchModel.clear();
 
