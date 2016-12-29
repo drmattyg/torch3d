@@ -54,6 +54,10 @@ function runEditorSongbook() {
 }
 
 $(document).ready(function(){
+    $("[name='show-edge-labels']").bootstrapSwitch();
+    $("[name='show-edge-labels']").on('switchChange.bootstrapSwitch', (event, state) => {
+        console.log(state);
+    });
     editorControl.getSample('test2', (resp) => {
         editor.setValue(resp, 1);
         runEditorSongbook();
