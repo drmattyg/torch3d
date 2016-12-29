@@ -188,6 +188,7 @@ class Edge {
 
 	delete() {
 		this.setFlameState(false);
+		this.showEdgeLabel(false);
 		//this.scene.remove(this.edge_label);
 	}
 

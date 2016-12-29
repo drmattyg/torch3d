@@ -37,6 +37,7 @@ window.render = function() {
 
 function runEditorSongbook() {
     torchModel = new TorchModel(scale, scene);
+
     var torchModelRender = torchModel.getRenderStructure()
     scene.add(torchModelRender);
     var text = editor.getValue();
@@ -45,11 +46,17 @@ function runEditorSongbook() {
 //            torchModel = new TorchModel(scale, scene);
         window.current_songbook = new Songbook(text, torchModel);
         window.current_songbook.run();
+        resetSettings();
     } catch(e) {
         $('#error-modal-text pre').text(e.message);
         $('#error-modal').modal();
     }
 }
+
+function resetSettings() {
+    $("[name='show-edge-labels']").bootstrapSwitch("state", true, true);
+}
+
 var examples = ['song_for_diana', 'chaser'];
 
 $(document).ready(function(){
@@ -63,7 +70,7 @@ $(document).ready(function(){
         runEditorSongbook();
     });
     $("#clear-button").click(function() {
-        window.current_songbook.stop();        
+        window.current_songbook.stop();      
         window.current_songbook = Songbook.BLANK_SONGBOOK(torchModel);
         window.current_songbook.run();
         window.editor.setValue("", 1);
@@ -71,7 +78,9 @@ $(document).ready(function(){
     examples.forEach((example)=> {
         $("#" + example).click((event) => {
             window.current_songbook.stop();
+            torchModel.delete();
             editorControl.loadSample(example, runEditorSongbook);
+            
         })
     })
 });
