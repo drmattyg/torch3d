@@ -37,25 +37,30 @@ window.render = function() {
     renderer.render(scene, camera);
 }
 
+function runEditorSongbook() {
+    var torchModel = new TorchModel(scale, scene);
+    var torchModelRender = torchModel.getRenderStructure()
+    scene.add(torchModelRender);
+    var text = editor.getValue();
+    try {
+        var yml = jsyaml.safeLoad(text);
+//            torchModel = new TorchModel(scale, scene);
+        window.current_songbook = new Songbook(text, torchModel);
+        window.current_songbook.run();
+    } catch(e) {
+        $('#error-modal-text pre').text(e.message);
+        $('#error-modal').modal();
+    }
+}
+
 $(document).ready(function(){
-    editorControl.loadSample('test2');
-    window.current_songbook = Songbook.BLANK_SONGBOOK(torchModel);
-    window.current_songbook.run();
+    editorControl.getSample('test2', (resp) => {
+        editor.setValue(resp, 1);
+        runEditorSongbook();
+    });
     $("#run-button").click(function() {
         window.current_songbook.stop();
-        var torchModel = new TorchModel(scale, scene);
-        var torchModelRender = torchModel.getRenderStructure()
-        scene.add(torchModelRender);
-        var text = editor.getValue();
-        try {
-            var yml = jsyaml.safeLoad(text);
-//            torchModel = new TorchModel(scale, scene);
-            window.current_songbook = new Songbook(text, torchModel);
-            window.current_songbook.run();
-        } catch(e) {
-            $('#error-modal-text pre').text(e.message);
-            $('#error-modal').modal();
-        }
+        runEditorSongbook();
     });
     $("#clear-button").click(function() {
         window.current_songbook.stop();        
