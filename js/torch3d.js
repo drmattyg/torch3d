@@ -57,11 +57,11 @@ $(document).ready(function(){
             $('#error-modal').modal();
         }
     });
-    // for testing
     $("#clear-button").click(function() {
         window.current_songbook.stop();        
         window.current_songbook = Songbook.BLANK_SONGBOOK(torchModel);
         window.current_songbook.run();
+        window.editor.setValue("", 1);
     });
 });
 // var xhttp = new XMLHttpRequest();
