@@ -16,7 +16,7 @@
 	width: 100%;
 	margin: 10px;
 	border: 1px solid black;
-	float: right;
+//	float: right;
 
 	position: : absolute;
 	top: 0;
@@ -26,7 +26,8 @@
 }
 
 .editor-container {
-	float: right;
+//	float: right;
 	background: #c0cad8;
 	height: 100vh;
+	min-width: 400px;
 }
