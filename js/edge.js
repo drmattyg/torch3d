@@ -90,10 +90,10 @@ class Edge {
 	setFlameState(b) {
 		if(b) {
 			this.scene.add(this.flame);
-			this.flame_state = FLAME_STATE.OFF;
+			this.flame_state = FLAME_STATE.ON;
 		} else {
 			this.scene.remove(this.flame);
-			this.flame_state = FLAME_STATE.ON;
+			this.flame_state = FLAME_STATE.OFF;
 		}
 	}
 
@@ -173,6 +173,11 @@ class Edge {
 			self.scene.add(text_mesh);
 			self.edge_label = text_mesh;
 		});
+	}
+
+	delete() {
+		this.setFlameState(false);
+		this.scene.remove(this.edge_label);
 	}
 
 

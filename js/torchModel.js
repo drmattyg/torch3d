@@ -74,10 +74,16 @@ class TorchModel {
     }
 
     clear() {
-        console.log("foo");
     	this.edgeList().forEach((edge) => {
     		edge.setFlameState(false);
     	});
+    }
+
+    delete() {
+        this.clear();
+        this.edgeList().forEach((edge) => {
+            edge.delete();
+        });
     }
 
 }

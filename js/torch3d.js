@@ -39,9 +39,9 @@ window.render = function() {
 
 $(document).ready(function(){
     editorControl.loadSample('test2');
-    scene.add(torchModel.getRenderStructure());
-    window.render();
-    // todo: move the animation loop out here?
+    editorControl.getSample('blank', (resp) => {
+        (new Songbook(resp, torchModel)).run();
+    })
     $("#run-button").click(function() {
         scene.remove(torch.renderStructure)
         var torchModel = new TorchModel(scale, scene);
