@@ -75,6 +75,7 @@ $(document).ready(function(){
         window.current_songbook.run();
         window.editor.setValue("", 1);
     });
+    $('#documentation-link').click((e) => { $("#documentation-modal").modal();})
     examples.forEach((example)=> {
         $("#" + example).click((event) => {
             window.current_songbook.stop();
