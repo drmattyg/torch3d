@@ -31,8 +31,8 @@ class Edge {
 			new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
 		this.flame.name = this.flame.uuid;
 		this.auto_speed = null;
+		this.edge_labels_visible = false;
 		this.generateEdgeLabel();
-
 	}
 
 /* auto_speed automagically moves the flame such that it covers a set distance in
@@ -170,9 +170,20 @@ class Edge {
 			var material = new THREE.MeshBasicMaterial( { color: 0xf2e12b, wireframe: true } );
 			var text_mesh = new THREE.Mesh(text_geo,  material);
 			text_mesh.position.set(xyz[0], xyz[1], xyz[2]);
-			self.scene.add(text_mesh);
 			self.edge_label = text_mesh;
+			self.showEdgeLabel(true);
 		});
+	}
+
+	showEdgeLabel(b) {
+		if(b && ! this.edge_label_visible) {
+			this.scene.add(this.edge_label);
+			this.edge_label_visible = true;
+		}
+		if(!b && this.edge_label_visible) {
+			this.scene.remove(this.edge_label);
+			this.edge_label_visible = false;
+		}
 	}
 
 	delete() {

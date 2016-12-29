@@ -3,6 +3,7 @@ var EdgeModel = require("./edge.js")
 var Edge = EdgeModel.Edge
 class TorchModel {
     constructor(scale, scene) {
+        console.trace()
     	var offset = [-0.4, 0, 1];
         this.scale = scale;
         this.speed = scale/10;
@@ -84,6 +85,10 @@ class TorchModel {
         this.edgeList().forEach((edge) => {
             edge.delete();
         });
+    }
+
+    showEdgeLabels(b) {
+        this.edgeList().forEach((edge) => { edge.showEdgeLabel(b)});
     }
 
 }

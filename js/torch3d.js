@@ -29,16 +29,14 @@ editor.setTheme("ace/theme/monokai");
 editor.getSession().setMode("ace/mode/yaml");
 
 var scale = 10;
-var torchModel = new TorchModel(scale, scene);
-var torchModelRender = torchModel.getRenderStructure()
-scene.add(torchModelRender);
+var torchModel = null;
 
 window.render = function() {
     renderer.render(scene, camera);
 }
 
 function runEditorSongbook() {
-    var torchModel = new TorchModel(scale, scene);
+    torchModel = new TorchModel(scale, scene);
     var torchModelRender = torchModel.getRenderStructure()
     scene.add(torchModelRender);
     var text = editor.getValue();
@@ -56,7 +54,7 @@ function runEditorSongbook() {
 $(document).ready(function(){
     $("[name='show-edge-labels']").bootstrapSwitch();
     $("[name='show-edge-labels']").on('switchChange.bootstrapSwitch', (event, state) => {
-        console.log(state);
+        torchModel.showEdgeLabels(state);
     });
     editorControl.getSample('test2', (resp) => {
         editor.setValue(resp, 1);
