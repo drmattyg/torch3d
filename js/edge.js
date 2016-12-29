@@ -1,5 +1,4 @@
 "use strict";
-
 var FLAME_STATE = {
 	OFF: 0,
 	ON: 1
@@ -9,7 +8,7 @@ var DRIVE_DIRECTION = {
 	FORWARD: 1,
 	REVERSE: -1
 }
-print = console.log;
+var print = console.log;
 // Fuck I've been writing Python for two long, now I have mixed camelCase and
 // snake_case.  MY BRAIN CANNOT DEAL.
 // TODO: Test more cases with more commands; fix edge labels; fix up website; add music; write a good demo; DOCUMENT

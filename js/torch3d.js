@@ -54,6 +54,10 @@ $(document).ready(function(){
             $('#error-modal').modal();
         }
     });
+    // for testing
+    $("#clear-button").click(function() {
+        torchModel.clear();
+    });
 });
 // var xhttp = new XMLHttpRequest();
 // xhttp.onreadystatechange = function() {
