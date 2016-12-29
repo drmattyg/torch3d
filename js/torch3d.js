@@ -42,7 +42,7 @@ $(document).ready(function(){
     window.current_songbook = Songbook.BLANK_SONGBOOK(torchModel);
     window.current_songbook.run();
     $("#run-button").click(function() {
-        scene.remove(torch.renderStructure)
+        window.current_songbook.stop();
         var torchModel = new TorchModel(scale, scene);
         var torchModelRender = torchModel.getRenderStructure()
         scene.add(torchModelRender);

@@ -6,26 +6,42 @@ songbook:
       - edge: 6
         flame: 1
         dir: 1
-  - start_at: 1000
-    time: 2000
-    edges:
-      - edge: 7
-        flame: 1
-        dir: 1
-  - start_at: 2000
-    time: 1000
-    edges:
-      - edge: 8
-        flame: 1
-        dir: 1
   - start_at: 3000
-    time: 2000
+    time: 3000
     edges:
-      - edge: 6
+      - edge: 0
         flame: 1
-        dir: -1
-        distance: 0.5
-      - edge: 7
+        dir: 1
+      - edge: 6
         flame: 0
+        dir: 0
+  - start_at: 1000
+    time: 2500
+    edges:
+      - edge: 8
+        flame: 1
+        dir: 1
+  - start_at: 3500
+    time: 2500
+    edges:
+      - edge: 2
+        flame: 1
+        dir: 1
       - edge: 8
         flame: 0
+        dir: 0
+  - start_at: 2000
+    time: 2000
+    edges:
+      - edge: 7
+        flame: 1
+        dir: 1
+  - start_at: 4000
+    time: 2000
+    edges:
+      - edge: 1
+        flame: 1
+        dir: 1
+      - edge: 7
+        flame: 0
+        dir: 0
