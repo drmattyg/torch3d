@@ -75,9 +75,8 @@ class TorchModel {
 
     clear() {
     	this.edgeList().forEach((edge) => {
-    		this.scene.remove(edge.flame);
+    		edge.setFlameState(false);
     	});
-    	this.scene.remove(this.renderStructure);
     }
 
 }

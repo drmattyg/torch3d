@@ -88,8 +88,14 @@ class Edge {
 		return (this.relative_position >= 1);
 	}
 
-	flameOn() {
-		this.scene.add(this.flame);
+	setFlameState(b) {
+		if(b) {
+			this.scene.add(this.flame);
+			this.flame_state = FLAME_STATE.OFF;
+		} else {
+			this.scene.remove(this.flame);
+			this.flame_state = FLAME_STATE.ON;
+		}
 	}
 
 	renderFlame() {
