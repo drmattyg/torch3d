@@ -38,7 +38,7 @@ class TorchModel {
     	this.edges.forEach((edge) => { edge.speed = 0; })
     }
 
-    renderStructure() {
+    getRenderStructure() {
 		var material = new THREE.LineBasicMaterial({
 			color: 0x00ffff, linewidth: 3
 		});

@@ -30,7 +30,7 @@ editor.getSession().setMode("ace/mode/yaml");
 
 var scale = 10;
 var torchModel = new TorchModel(scale, scene);
-var torchModelRender = torchModel.renderStructure()
+var torchModelRender = torchModel.getRenderStructure()
 scene.add(torchModelRender);
 
 window.render = function() {
@@ -46,7 +46,7 @@ $(document).ready(function(){
         try {
             var yml = jsyaml.safeLoad(text);
 //            torchModel = new TorchModel(scale, scene);
-            scene.add(torchModel.renderStructure());
+            scene.add(torchModel.getRenderStructure());
             var sb = new Songbook(text, torchModel);
             sb.run();
         } catch(e) {
