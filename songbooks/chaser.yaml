@@ -1,0 +1,104 @@
+version: 1.0
+author: matt@hydrocarboncollective.org
+title: Chaser
+songbook:
+  - start_at: 0
+    time: 3000
+    edges:
+      - edge: 6
+        flame: 1
+        dir: 1
+      - edge: 5
+        flame: 0
+        dir: 1
+  - start_at: 3000
+    time: 3000
+    edges:
+      - edge: 5
+        flame: 1
+        dir: -1
+      - edge: 6
+        flame: 0
+        dir: 0
+  - start_at: 6000
+    time: 3000
+    edges:
+      - edge: 2
+        flame: 1
+        dir: 1
+      - edge: 5
+        flame: 0
+        dir: 0
+      - edge: 1
+        flame: 0
+        dir: 1
+  - start_at: 9000
+    time: 3000
+    edges:
+      - edge: 1
+        flame: 1
+        dir: -1
+      - edge: 2
+        flame: 0
+        dir: 0
+      - edge: 7
+        flame: 0
+        dir: 1
+  - start_at: 12000
+    time: 3000
+    edges:
+      - edge: 7
+        flame: 1
+        dir: -1
+      - edge: 1
+        flame: 0
+        dir: 0
+  - start_at: 15000
+    time: 3000
+    edges:
+      - edge: 8
+        flame: 1
+        dir: 1
+      - edge: 7
+        flame: 0
+        dir: 0
+      - edge: 4
+        flame: 0
+        dir: 1
+  - start_at: 18000
+    time: 3000
+    edges:
+      - edge: 4
+        flame: 1
+        dir: -1
+      - edge: 8
+        flame: 0
+        dir: 0
+      - edge: 3
+        flame: 0
+        dir: 1
+  - start_at: 21000
+    time: 3000
+    edges:
+      - edge: 3
+        flame: 1
+        dir: -1
+      - edge: 4
+        flame: 0
+        dir: 0
+  - start_at: 24000
+    time: 3000
+    edges:
+      - edge: 0
+        flame: 1
+        dir: 1
+      - edge: 3
+        flame: 0
+        dir: 0
+  - start_at: 27000
+    time: 1
+    edges:
+      - edge: 0
+        flame: 0
+        dir: 0
+

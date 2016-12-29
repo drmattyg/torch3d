@@ -50,7 +50,7 @@ function runEditorSongbook() {
         $('#error-modal').modal();
     }
 }
-var examples = ['song_for_diana'];
+var examples = ['song_for_diana', 'chaser'];
 
 $(document).ready(function(){
     $("[name='show-edge-labels']").bootstrapSwitch();
@@ -71,7 +71,7 @@ $(document).ready(function(){
     examples.forEach((example)=> {
         $("#" + example).click((event) => {
             window.current_songbook.stop();
-            editorControl.loadSample('song_for_diana', runEditorSongbook);
+            editorControl.loadSample(example, runEditorSongbook);
         })
     })
 });
