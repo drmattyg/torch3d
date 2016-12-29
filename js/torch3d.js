@@ -43,13 +43,14 @@ $(document).ready(function(){
     window.render();
     // todo: move the animation loop out here?
     $("#run-button").click(function() {
-        torchModel.clear();
-
+        scene.remove(torch.renderStructure)
+        var torchModel = new TorchModel(scale, scene);
+        var torchModelRender = torchModel.getRenderStructure()
+        scene.add(torchModelRender);
         var text = editor.getValue();
         try {
             var yml = jsyaml.safeLoad(text);
 //            torchModel = new TorchModel(scale, scene);
-            scene.add(torchModel.getRenderStructure());
             var sb = new Songbook(text, torchModel);
             sb.run();
         } catch(e) {

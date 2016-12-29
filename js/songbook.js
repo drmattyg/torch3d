@@ -3,6 +3,7 @@ var jsyaml = require('js-yaml')
 var _ = require('lodash')
 var MIN_TIME = 1000; // min travel time
 var print = console.log;
+
 class Songbook {
 	constructor(yml, torchModel) {
 		try {
