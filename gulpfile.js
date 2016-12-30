@@ -11,7 +11,8 @@ var     browserify = require('browserify'),
         rename     = require('gulp-rename'),
         sourceMaps = require('gulp-sourcemaps'),
         source     = require('vinyl-source-stream'),
-        watchify   = require('watchify');
+        watchify   = require('watchify'),
+        markdown = require('gulp-markdown');
 
 var config = {
     js: {
@@ -47,6 +48,13 @@ gulp.task('bundle', function () {
     var bundler = browserify(config.js.src)  // Pass browserify the entry point
     bundle(bundler);  // Chain other options -- sourcemaps, rename, etc.
 })
+
+gulp.task('markdown', function () {
+    return gulp.src('doc/torch3d.md')
+        .pipe(markdown())
+        .pipe(rename("torch_doc.html"))
+        .pipe(gulp.dest('build'));
+});
 
 gulp.task('watchify', function(){
    watchify.args.debug = true;
