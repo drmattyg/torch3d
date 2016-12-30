@@ -83,6 +83,13 @@ $(document).ready(function(){
             editorControl.loadSample(example, runEditorSongbook);
             
         })
+    });
+    // load the documenation
+    $.get({
+        url: "build/torch_doc.html",
+        success: (resp) => {
+            $("#documentation-modal-text").append(resp);
+        }
     })
 });
 // var xhttp = new XMLHttpRequest();
