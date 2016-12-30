@@ -84,7 +84,6 @@ $(document).ready(function(){
             
         })
     });
-
     // jplayer
     $("#jquery_jplayer_1").jPlayer({
         ready: function () {
@@ -106,6 +105,14 @@ $(document).ready(function(){
         remainingDuration: true,
         toggleDuration: true
     });
+
+    // load the documenation
+    $.get({
+        url: "build/torch_doc.html",
+        success: (resp) => {
+            $("#documentation-modal-text").append(resp);
+        }
+    })
 });
 // var xhttp = new XMLHttpRequest();
 // xhttp.onreadystatechange = function() {
