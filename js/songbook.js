@@ -7,7 +7,7 @@ var print = console.log;
 var BLANK_SONGBOOK_YAML = "version: 1.0\nsongbook:\n - start at: 0\n   time: 1\n   edges: []\n"
 
 class Songbook {
-	constructor(yml, torchModel) {
+	constructor(yml, torchModel, callback) {
 		try {
 			var parsed = jsyaml.safeLoad(yml);
 			if(!parsed.version == 1.0) {
@@ -28,6 +28,13 @@ class Songbook {
 		this.torchModel = torchModel
 		this.startTime = null;
 		this.run_animation = false;
+		self = this;
+		['author', 'title', 'mp3', 'version'].forEach((k) => {
+			self[k] = parsed[k];
+		});
+		if(callback != undefined) {
+			callback(this);
+		}
 	}
 
 	setCallbacks(measure) {

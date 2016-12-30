@@ -35,6 +35,16 @@ window.render = function() {
     renderer.render(scene, camera);
 }
 
+function setMusicPlayerOptions(songbook) {
+    if(songbook.mp3) {
+        $("#jquery_jplayer_1").jPlayer("setMedia", 
+        {
+            title: songbook.title,
+            mp3: songbook.mp3
+        });
+    }
+}
+
 function runEditorSongbook() {
     torchModel = new TorchModel(scale, scene);
 
@@ -44,7 +54,7 @@ function runEditorSongbook() {
     try {
         var yml = jsyaml.safeLoad(text);
 //            torchModel = new TorchModel(scale, scene);
-        window.current_songbook = new Songbook(text, torchModel);
+        window.current_songbook = new Songbook(text, torchModel, setMusicPlayerOptions);
         window.current_songbook.run();
         resetSettings();
     } catch(e) {
@@ -86,12 +96,6 @@ $(document).ready(function(){
     });
     // jplayer
     $("#jquery_jplayer_1").jPlayer({
-        ready: function () {
-            $(this).jPlayer("setMedia", {
-                title: "Bubble",
-                mp3: "http://jplayer.org/audio/mp3/Miaow-07-Bubble.mp3"
-            });
-        },
         size: {
             width: "0px",
             height: "0px"
@@ -112,7 +116,7 @@ $(document).ready(function(){
         success: (resp) => {
             $("#documentation-modal-text").append(resp);
         }
-    })
+    });
 });
 // var xhttp = new XMLHttpRequest();
 // xhttp.onreadystatechange = function() {
