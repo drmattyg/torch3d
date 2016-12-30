@@ -311,7 +311,9 @@
 .jp-duration {
   width: 60px;
   font-size: .64em;
-  font-style: oblique; }
+  font-style: oblique; 
+  // background-color: #eee; this works for some reason?
+}
 
 .jp-current-time {
   float: left;
