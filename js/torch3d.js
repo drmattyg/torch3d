@@ -83,7 +83,29 @@ $(document).ready(function(){
             editorControl.loadSample(example, runEditorSongbook);
             
         })
-    })
+    });
+
+    // jplayer
+    $("#jquery_jplayer_1").jPlayer({
+        ready: function () {
+            $(this).jPlayer("setMedia", {
+                title: "Bubble",
+                mp3: "http://jplayer.org/audio/mp3/Miaow-07-Bubble.mp3"
+            });
+        },
+        size: {
+            width: "0px",
+            height: "0px"
+        },
+        supplied: "mp3",
+        wmode: "window",
+        useStateClassSkin: true,
+        autoBlur: false,
+        smoothPlayBar: true,
+        keyEnabled: true,
+        remainingDuration: true,
+        toggleDuration: true
+    });
 });
 // var xhttp = new XMLHttpRequest();
 // xhttp.onreadystatechange = function() {
