@@ -41,6 +41,10 @@ After the songbook tag, a list of commands follows.  Each command is indendeted 
       - edge: 6
         flame: 0
         dir: 0
+      - edge: 7
+        flame: 1
+        dir: -1
+        distance: 0.5
 ```
 
 Let's break this down:
@@ -50,6 +54,22 @@ Let's break this down:
 - *edges*: a list of edges to control.
 
 Each edge specficiation in turn contains the following commands:
+
 - *edge*: the number of the edge to control (see the simulator for the edge numbers)
 - *flame*: Whether the flame should be on or off.  1 = ON, 2 = OFF
-- *dir*: The direction of travel.  1 is forward, -1 is reverse, 0 is no movement (the shuttle will remain stationary.)  "Forward" means from the reverse vertex towards the forward vertex; these are specified here: https://github.com/drmattyg/torch3d/blob/master/js/torchModel.js .  But, in practice, forward points upwards on edges 0 - 2 and 6 - 8, and clockwise on edges 3 - 5.  Shuttles always start their program at the reverse vertex (down, or counterclockwise.)
+- *dir*: The direction of travel.  1 is forward, -1 is reverse, 0 is no movement (the shuttle will remain stationary.)  "Forward" means from the reverse vertex towards the forward vertex; these are specified here: https://github.com/drmattyg/torch3d/blob/master/js/torchModel.js.  But, in practice, forward points upwards on edges 0 - 2 and 6 - 8, and clockwise on edges 3 - 5.  Shuttles always start their program at the reverse vertex (down, or counterclockwise.)
+- *distance*: This is an optional parameter that lets you specify the **relative distance** to move the shuttle.  Relative distance is specified as a number between 0 and 1, where 1 is the total length of the edge.  So, for instance, the last edge command will move shuttle 7 in reverse 0.5 the length of the entire edge, in 3000 milliseconds.  This means that it will move twice as fast as a shuttle moving the entire length in the same amount of time.  
+Note also that it's again up to you to keep track of shuttle locations between commands.  As an example: If the shuttle on edge 0 is starting at a relative position of 0.5 (the middle of the edge), and you give it a command:
+```
+  - start_at: 10000
+    time: 10000
+    edges:
+      - edge: 0
+        flame: 1
+        dir: 1
+```
+The implied distance is 1, and the implied speed is 1 full edge length per 10 seconds.  However, the limits will stop it when it reaches the end, meaning that it will traverese the distance from 0.5 to 1 in only 5 seconds.
+
+### Music
+
+Torch Song songbooks can be synced with music, specified as a URL to an MP3 in the songbook.  This feature is coming soon!
