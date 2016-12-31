@@ -22,10 +22,9 @@ class AudioPlayer {
     		var f = $("#mp3-input").get(0).files[0];
     		this.element.jPlayer("setMedia", 
 	        {
-	            title: "Foobar",
+	            title: f.name.substr(0, 20) + "...",
 	            mp3: window.URL.createObjectURL(f)
 	        });
-	        this.element.jPlayer("play", 0);
     	});
 		
 	}
