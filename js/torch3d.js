@@ -46,6 +46,12 @@ function updateTimer(time) {
     $("#play-timer-time").text(Math.floor(time));
 }
 
+function resetAndRun() {
+    resetSettings();
+    window.current_songbook.run(updateTimer);
+
+}
+
 function runEditorSongbook() {
     torchModel = new TorchModel(scale, scene);
 
@@ -55,14 +61,19 @@ function runEditorSongbook() {
     try {
         var yml = jsyaml.safeLoad(text);
 //            torchModel = new TorchModel(scale, scene);
-        window.current_songbook = new Songbook(text, torchModel, (sb) => { 
-            audioPlayer.setMusicPlayerOptions(sb)             
-            audioPlayer.play(() => {
-                window.current_songbook.run(updateTimer);
-                $("#run-button").html('<i class="fa fa-step-backward"></i>');
 
-            });
-            resetSettings();
+        window.current_songbook = new Songbook(text, torchModel, (sb) => { 
+
+            if(sb.mp3) {
+                audioPlayer.setMusicPlayerOptions(sb)             
+                audioPlayer.play(() => {
+                    resetAndRun();
+
+                });
+            } else {
+                resetAndRun();                
+            }
+            
         });
         
     } catch(e) {
@@ -103,6 +114,7 @@ $(document).ready(function(){
         window.current_songbook = Songbook.BLANK_SONGBOOK(torchModel);
         window.current_songbook.run();
         window.editor.setValue("", 1);
+        $("#run-button").html('<i class="fa fa-play"></i>');
         resetSettings();
     });
     $('#documentation-link').click((e) => { $("#documentation-modal").modal();})
