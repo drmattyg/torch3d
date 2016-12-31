@@ -95,6 +95,7 @@ class Songbook {
 					self.startTime = time;
 				}
 				var currTime = time - self.startTime;
+				$("#play-timer-time").text(Math.floor(currTime));
 				while(cmd_num <= self.songbook.length - 1 && currTime >= self.songbook[cmd_num].start_at) {
 					var current_command = self.songbook[cmd_num++];
 					self.setEdges(current_command);
