@@ -40,3 +40,20 @@
 	box-shadow: 10px 10px 5px #888888;
 	padding-left: 0px;
 }
+
+.play-timer {
+	float: right;
+	border: 2px solid #888888;
+	padding: 4px;
+	background: black;
+	color: green;
+	position: relative;
+	top: -3px;
+	width: 120px;
+//	box-shadow: 5px 5px 5px #888888;
+}
+
+
+.play-timer-ms {
+	float: right;
+}
