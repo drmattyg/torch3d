@@ -69,8 +69,10 @@ function runEditorSongbook() {
         var yml = jsyaml.safeLoad(text);
 //            torchModel = new TorchModel(scale, scene);
         window.current_songbook = new Songbook(text, torchModel, (sb) => { 
-            if(sb.mp3) {
-                audioPlayer.setMusicPlayerOptions(sb)
+            if(sb.mp3 || audioPlayer.localAudio) {
+                if(sb.mp3) {
+                    audioPlayer.setMusicPlayerOptions(sb)
+                }
                 audioPlayer.play(() => {
                     resetAndRun(sb);
 
@@ -91,6 +93,8 @@ function resetSettings() {
     $("[name='show-edge-labels']").bootstrapSwitch("state", true, true);
     $("#run-button").html('<i class="fa fa-play"></i>');
     $("#pause-button").html('<i class="fa fa-pause"></i>');
+    updateTimer(0);
+    audioPlayer.localAudio = false;
 }
 
 var examples = ['song_for_diana', 'chaser'];

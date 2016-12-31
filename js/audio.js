@@ -18,6 +18,7 @@ class AudioPlayer {
 	        remainingDuration: true,
 	        toggleDuration: true
     	});
+    	this.localAudio = false;
     	$("#mp3-input").on("change", () => { 
     		var f = $("#mp3-input").get(0).files[0];
     		this.element.jPlayer("setMedia", 
@@ -25,12 +26,14 @@ class AudioPlayer {
 	            title: f.name.substr(0, 20) + "...",
 	            mp3: window.URL.createObjectURL(f)
 	        });
+	        this.localAudio = true;
     	});
 		
 	}
 
 	setMusicPlayerOptions(songbook) {
 	    if(songbook.mp3) {
+	    	this.localAudio = false;
 	        this.element.jPlayer("setMedia", 
 	        {
 	            title: songbook.title,
