@@ -85,6 +85,9 @@ $(document).ready(function(){
         window.current_songbook.stop();
         runEditorSongbook();
     });
+    $("#pause-button").click(function() {
+        window.current_songbook.togglePause();
+    });
     $("#clear-button").click(function() {
         window.current_songbook.stop();      
         window.current_songbook = Songbook.BLANK_SONGBOOK(torchModel);

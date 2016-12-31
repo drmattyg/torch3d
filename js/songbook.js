@@ -28,6 +28,7 @@ class Songbook {
 		this.torchModel = torchModel
 		this.startTime = null;
 		this.run_animation = false;
+		this.pause = false;
 		self = this;
 		['author', 'title', 'mp3', 'version'].forEach((k) => {
 			self[k] = parsed[k];
@@ -57,6 +58,10 @@ class Songbook {
 		return wf;
 	}
 
+	togglePause() {
+		this.pause = !this.pause;
+	}
+
 	setEdges(command) {
 		var self = this;
 		_.forEach(command.edges, (e) => {
@@ -78,34 +83,50 @@ class Songbook {
 		var self = this;
 		self.run_animation = true;
 		var cmd_num = 0;
+		var cumulativePauseTime = 0;
+		var lastPauseStart = null;
 		var _animate = function(time) {
-			var renderer = window.renderer;
-			var width = $("#torch").width()
-			var height = $("#torch").height()
- 
-			// check if the canvas is the same size
-			if (renderer.domElement.width !== width ||
-			    renderer.domElement.height !== height) {
-				camera.aspect = width/height;
-    			camera.updateProjectionMatrix();
-		    	renderer.setSize( width, height, true );
+			if(self.pause) {
+				if(lastPauseStart === null) {
+					lastPauseStart = time;
+				}
 			}
-			if(self.run_animation) {
-				if(self.startTime == null) {
-					self.startTime = time;
+			if(!self.pause) {
+				if(lastPauseStart != null)  {
+					cumulativePauseTime += time - lastPauseStart;
+					lastPauseStart = null;
 				}
-				var currTime = time - self.startTime;
-				if(timerCallback) {
-					timerCallback(currTime);
+				
+				var renderer = window.renderer;
+				var width = $("#torch").width()
+				var height = $("#torch").height()
+	 
+				// check if the canvas is the same size
+				if (renderer.domElement.width !== width ||
+				    renderer.domElement.height !== height) {
+					camera.aspect = width/height;
+	    			camera.updateProjectionMatrix();
+			    	renderer.setSize( width, height, true );
 				}
-				while(cmd_num <= self.songbook.length - 1 && currTime >= self.songbook[cmd_num].start_at) {
-					var current_command = self.songbook[cmd_num++];
-					self.setEdges(current_command);
+				if(self.run_animation) {
+					if(self.startTime == null) {
+						self.startTime = time;
+					}
+					var currTime = time - self.startTime - cumulativePauseTime;
+					if(timerCallback) {
+						timerCallback(currTime);
+					}
+					while(cmd_num <= self.songbook.length - 1 && currTime >= self.songbook[cmd_num].start_at) {
+						var current_command = self.songbook[cmd_num++];
+						self.setEdges(current_command);
+					}
+					self.torchModel.tick(currTime);
 				}
-				self.torchModel.tick(currTime);
+				window.render();
+				
 			}
-			window.render();
 			requestAnimationFrame(_animate);
+
     	};
     	requestAnimationFrame(_animate);
 	}
