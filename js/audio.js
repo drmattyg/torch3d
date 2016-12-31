@@ -18,6 +18,15 @@ class AudioPlayer {
 	        remainingDuration: true,
 	        toggleDuration: true
     	});
+    	$("#mp3-input").on("change", () => { 
+    		var f = $("#mp3-input").get(0).files[0];
+    		this.element.jPlayer("setMedia", 
+	        {
+	            title: "Foobar",
+	            mp3: window.URL.createObjectURL(f)
+	        });
+	        this.element.jPlayer("play", 0);
+    	});
 		
 	}
 
@@ -35,6 +44,8 @@ class AudioPlayer {
     	this.element.bind($.jPlayer.event.play, () => { callback(); });
     	this.element.jPlayer("play", 0);
     }
+
+
 }
 
 
