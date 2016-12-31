@@ -46,10 +46,17 @@ function updateTimer(time) {
     $("#play-timer-time").text(Math.floor(time));
 }
 
-function resetAndRun() {
-    resetSettings();
-    window.current_songbook.run(updateTimer);
+// fix mp3 hosting and failure
+// why doesn't chaser run?
 
+function resetAndRun(sb) {
+    resetSettings();
+    $("#run-button").html('<i class="fa fa-step-backward"></i>');
+    sb.run(updateTimer);
+
+}
+function getCurrentSongbook() {
+    return window.current_songbook;
 }
 
 function runEditorSongbook() {
@@ -61,17 +68,15 @@ function runEditorSongbook() {
     try {
         var yml = jsyaml.safeLoad(text);
 //            torchModel = new TorchModel(scale, scene);
-
         window.current_songbook = new Songbook(text, torchModel, (sb) => { 
-
             if(sb.mp3) {
-                audioPlayer.setMusicPlayerOptions(sb)             
+                audioPlayer.setMusicPlayerOptions(sb)
                 audioPlayer.play(() => {
-                    resetAndRun();
+                    resetAndRun(sb);
 
                 });
             } else {
-                resetAndRun();                
+                resetAndRun(sb);                
             }
             
         });
@@ -97,12 +102,12 @@ $(document).ready(function(){
     });
     editorControl.loadSample('song_for_diana', runEditorSongbook);
     $("#run-button").click(function() {
-        window.current_songbook.stop();
+        getCurrentSongbook().stop();
         $("#pause-button").html('<i class="fa fa-pause"></i>');
         runEditorSongbook();
     });
     $("#pause-button").click(function() {
-        if(window.current_songbook.togglePause()) {
+        if(getCurrentSongbook().togglePause()) {
             $("#pause-button").html('<i class="fa fa-play"></i>');
         } else {
             $("#pause-button").html('<i class="fa fa-pause"></i>');
@@ -110,7 +115,8 @@ $(document).ready(function(){
 
     });
     $("#clear-button").click(function() {
-        window.current_songbook.stop();      
+        var sb = getCurrentSongbook()
+        sb.stop();      
         window.current_songbook = Songbook.BLANK_SONGBOOK(torchModel);
         window.current_songbook.run();
         window.editor.setValue("", 1);
@@ -120,8 +126,9 @@ $(document).ready(function(){
     $('#documentation-link').click((e) => { $("#documentation-modal").modal();})
     examples.forEach((example)=> {
         $("#" + example).click((event) => {
-            window.current_songbook.stop();
+            getCurrentSongbook().stop();
             torchModel.delete();
+            resetSettings();
             editorControl.loadSample(example, runEditorSongbook);
             
         })
