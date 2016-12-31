@@ -96,7 +96,6 @@ $(document).ready(function(){
         } else {
             $("#pause-button").html('<i class="fa fa-pause"></i>');
         }
-        paused = !paused;
 
     });
     $("#clear-button").click(function() {
