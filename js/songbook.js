@@ -60,6 +60,7 @@ class Songbook {
 
 	togglePause() {
 		this.pause = !this.pause;
+		return this.pause;
 	}
 
 	setEdges(command) {

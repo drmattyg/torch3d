@@ -59,6 +59,8 @@ function runEditorSongbook() {
             audioPlayer.setMusicPlayerOptions(sb)             
             audioPlayer.play(() => {
                 window.current_songbook.run(updateTimer);
+                $("#run-button").html('<i class="fa fa-step-backward"></i>');
+
             });
             resetSettings();
         });
@@ -71,6 +73,8 @@ function runEditorSongbook() {
 
 function resetSettings() {
     $("[name='show-edge-labels']").bootstrapSwitch("state", true, true);
+    $("#run-button").html('<i class="fa fa-play"></i>');
+    $("#pause-button").html('<i class="fa fa-pause"></i>');
 }
 
 var examples = ['song_for_diana', 'chaser'];
@@ -83,16 +87,24 @@ $(document).ready(function(){
     editorControl.loadSample('song_for_diana', runEditorSongbook);
     $("#run-button").click(function() {
         window.current_songbook.stop();
+        $("#pause-button").html('<i class="fa fa-pause"></i>');
         runEditorSongbook();
     });
     $("#pause-button").click(function() {
-        window.current_songbook.togglePause();
+        if(window.current_songbook.togglePause()) {
+            $("#pause-button").html('<i class="fa fa-play"></i>');
+        } else {
+            $("#pause-button").html('<i class="fa fa-pause"></i>');
+        }
+        paused = !paused;
+
     });
     $("#clear-button").click(function() {
         window.current_songbook.stop();      
         window.current_songbook = Songbook.BLANK_SONGBOOK(torchModel);
         window.current_songbook.run();
         window.editor.setValue("", 1);
+        resetSettings();
     });
     $('#documentation-link').click((e) => { $("#documentation-modal").modal();})
     examples.forEach((example)=> {
