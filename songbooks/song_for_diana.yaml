@@ -1,6 +1,7 @@
 version: 1.0
 author: matt@hydrocarboncollective.org
 title: A Song for Diana
+mp3: https://drive.google.com/uc?export=download&id=0B1Gqa8MgyBASaEZDNDcxRkZjNjg
 songbook:
   - start_at: 0
     time: 3000

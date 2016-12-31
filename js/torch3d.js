@@ -8,6 +8,7 @@ var container = document.getElementById('torch');
 var jsyaml = require('js-yaml');
 var fs = require('fs');
 var editorControl = require('./editor.js');
+var AudioPlayer = require('./audio.js')
 //document.body.appendChild( container );
 
 renderer.setSize(300, 600);
@@ -35,19 +36,10 @@ editor.getSession().setMode("ace/mode/yaml");
 
 var scale = 10;
 var torchModel = null;
+var audioPlayer = null; // initialize when document.ready
 
 window.render = function() {
     renderer.render(scene, camera);
-}
-
-function setMusicPlayerOptions(songbook) {
-    if(songbook.mp3) {
-        $("#jquery_jplayer_1").jPlayer("setMedia", 
-        {
-            title: songbook.title,
-            mp3: songbook.mp3
-        });
-    }
 }
 
 function runEditorSongbook() {
@@ -59,8 +51,9 @@ function runEditorSongbook() {
     try {
         var yml = jsyaml.safeLoad(text);
 //            torchModel = new TorchModel(scale, scene);
-        window.current_songbook = new Songbook(text, torchModel, setMusicPlayerOptions);
+        window.current_songbook = new Songbook(text, torchModel, (sb) => { audioPlayer.setMusicPlayerOptions(sb) });
         window.current_songbook.run();
+        audioPlayer.play();
         resetSettings();
     } catch(e) {
         $('#error-modal-text pre').text(e.message);
@@ -100,20 +93,7 @@ $(document).ready(function(){
         })
     });
     // jplayer
-    $("#jquery_jplayer_1").jPlayer({
-        size: {
-            width: "0px",
-            height: "0px"
-        },
-        supplied: "mp3",
-        wmode: "window",
-        useStateClassSkin: true,
-        autoBlur: false,
-        smoothPlayBar: true,
-        keyEnabled: true,
-        remainingDuration: true,
-        toggleDuration: true
-    });
+    audioPlayer = new AudioPlayer("#jquery_jplayer_1");
 
     // load the documenation
     $.get({
