@@ -74,7 +74,7 @@ class Songbook {
 		return !_.find(states)
 	}
 
-	run() {
+	run(timerCallback) {
 		var self = this;
 		self.run_animation = true;
 		var cmd_num = 0;
@@ -95,7 +95,9 @@ class Songbook {
 					self.startTime = time;
 				}
 				var currTime = time - self.startTime;
-				$("#play-timer-time").text(Math.floor(currTime));
+				if(timerCallback) {
+					timerCallback(currTime);
+				}
 				while(cmd_num <= self.songbook.length - 1 && currTime >= self.songbook[cmd_num].start_at) {
 					var current_command = self.songbook[cmd_num++];
 					self.setEdges(current_command);

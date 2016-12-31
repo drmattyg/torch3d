@@ -42,6 +42,10 @@ window.render = function() {
     renderer.render(scene, camera);
 }
 
+function updateTimer(time) {
+    $("#play-timer-time").text(Math.floor(time));
+}
+
 function runEditorSongbook() {
     torchModel = new TorchModel(scale, scene);
 
@@ -54,7 +58,7 @@ function runEditorSongbook() {
         window.current_songbook = new Songbook(text, torchModel, (sb) => { 
             audioPlayer.setMusicPlayerOptions(sb)             
             audioPlayer.play(() => {
-                window.current_songbook.run();
+                window.current_songbook.run(updateTimer);
             });
             resetSettings();
         });
