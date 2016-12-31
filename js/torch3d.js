@@ -17,6 +17,7 @@ var camera = new THREE.PerspectiveCamera(45, 0.5, 1, 500);
 // camera.position.set(5, 20, 50);
 camera.position.set(5, 20, 50);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
+
 var scene = new THREE.Scene();
 
 var ts = new TorchScene(scene);
@@ -24,7 +25,11 @@ ts.loadSkyBox();
 ts.loadGround();
 
 var editor = ace.edit("editor");
+
+// I am a very bad man for setting global variables.  Sue me.
 window.editor = editor;
+window.renderer = renderer;
+window.camera = camera;
 editor.setTheme("ace/theme/monokai");
 editor.getSession().setMode("ace/mode/yaml");
 

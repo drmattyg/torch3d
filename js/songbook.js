@@ -79,6 +79,17 @@ class Songbook {
 		self.run_animation = true;
 		var cmd_num = 0;
 		var _animate = function(time) {
+			var renderer = window.renderer;
+			var width = $("#torch").width()
+			var height = $("#torch").height()
+ 
+			// check if the canvas is the same size
+			if (renderer.domElement.width !== width ||
+			    renderer.domElement.height !== height) {
+				camera.aspect = width/height;
+    			camera.updateProjectionMatrix();
+		    	renderer.setSize( width, height, true );
+			}
 			if(self.run_animation) {
 				if(self.startTime == null) {
 					self.startTime = time;
