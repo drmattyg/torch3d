@@ -1,10 +1,15 @@
 #torch { 
-	width:300px; height: 600px; 
+	//width:300px; height: 600px; 
 	border: 1px solid black;
 	//margin: 10px;
 	padding: 0px;
 	background: #6a717c;
 
+}
+
+.torch-container {
+	padding-right: 0px;
+	box-shadow: 10px 10px 5px #888888;
 }
 
 .main-container {
@@ -23,11 +28,15 @@
 	right: 0;
 	bottom: 0;
 	left: 0;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 .editor-container {
 //	float: right;
 	background: #c0cad8;
-	height: 100vh;
+	height: 600px;
 	min-width: 400px;
+	box-shadow: 10px 10px 5px #888888;
+	padding-left: 0px;
 }
