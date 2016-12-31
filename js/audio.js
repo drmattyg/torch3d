@@ -18,7 +18,7 @@ class AudioPlayer {
 	        remainingDuration: true,
 	        toggleDuration: true
     	});
-		this.element.bind($.jPlayer.event.play, () => { console.log("foo") ;});
+		
 	}
 
 	setMusicPlayerOptions(songbook) {
@@ -31,7 +31,8 @@ class AudioPlayer {
 	    }
 	}
 
-    play() {
+    play(callback) {
+    	this.element.bind($.jPlayer.event.play, () => { callback(); });
     	this.element.jPlayer("play", 0);
     }
 }

@@ -51,10 +51,14 @@ function runEditorSongbook() {
     try {
         var yml = jsyaml.safeLoad(text);
 //            torchModel = new TorchModel(scale, scene);
-        window.current_songbook = new Songbook(text, torchModel, (sb) => { audioPlayer.setMusicPlayerOptions(sb) });
-        window.current_songbook.run();
-        audioPlayer.play();
-        resetSettings();
+        window.current_songbook = new Songbook(text, torchModel, (sb) => { 
+            audioPlayer.setMusicPlayerOptions(sb)             
+            audioPlayer.play(() => {
+                window.current_songbook.run();
+            });
+            resetSettings();
+        });
+        
     } catch(e) {
         $('#error-modal-text pre').text(e.message);
         $('#error-modal').modal();
