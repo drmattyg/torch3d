@@ -4,6 +4,7 @@ class AudioPlayer {
 	constructor(id, mp3InputId) {
 		this.id = id;
 		this.element = $(id);
+		this.mp3InputId = mp3InputId;
 		console.log("a");
 		this.init(null);
 		console.log("b");
@@ -19,7 +20,6 @@ class AudioPlayer {
 	setSongbook(songbook) {
 		if(songbook.mp3) {
 			this.mediaUrl = songbook.mp3;
-			this.mediaTitle = ""
 			this.mediaTitle = "";
 			if(songbook.title) {
 				this.mediaTitle = songbook.title;
@@ -29,14 +29,17 @@ class AudioPlayer {
 	}
 
 	setLocalInput() {
-		var f = $(mp3InputId).get(0).files[0];
-		var url = window.URL.createObjectURL(f);
-		if(!songbook.title) {
+		console.log(this.mp3InputId);
+		var f = $(this.mp3InputId).get(0).files[0];
+		if(!f) {
+			return false;
+		}
+		this.mediaUrl = window.URL.createObjectURL(f);
+		if(!this.mediaTitle) {
 			this.mediaTitle = f.name.substr(0, 20) + "...";
-    	} else {
-    		this.mediaTitle = mediaTitle = f.name.substr(0, 20) + "...";
     	}
     	this.setMusicPlayerOptions();
+    	return true;
 
 	}
 
@@ -55,12 +58,14 @@ class AudioPlayer {
 	// 	}
 	// }
 
+	reset() {
+		this.mediaUrl = null;
+		this.mediaTitle = null;
+	}
+
 	init(songbook) {
 		// this.getMediaSettings();
 		this.element.jPlayer("stop");
-		this.mediaUrl = null;
-		this.mediaTitle = null;
-
 		this.element.jPlayer({
 	        size: {
 	            width: "0px",
@@ -75,7 +80,9 @@ class AudioPlayer {
 	        remainingDuration: true,
 	        toggleDuration: true
     	});
-    	if(songbook) {
+    	this.mediaUrl = null;
+    	if(!this.setLocalInput() && songbook != null) {
+//    	if(songbook) {
     		this.setSongbook(songbook);
     	}
 

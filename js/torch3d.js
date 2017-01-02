@@ -124,7 +124,8 @@ $(document).ready(function(){
     });
     $("#clear-button").click(function() {
         var sb = getCurrentSongbook()
-        sb.stop();      
+        sb.stop();
+        audioPlayer.reset();
         window.current_songbook = Songbook.BLANK_SONGBOOK(torchModel);
         window.current_songbook.run();
         window.editor.setValue("", 1);
@@ -136,6 +137,7 @@ $(document).ready(function(){
         $("#" + example).click((event) => {
             getCurrentSongbook().stop();
             torchModel.delete();
+            audioPlayer.reset();
             resetSettings();
             editorControl.loadSample(example, runEditorSongbook);
             
