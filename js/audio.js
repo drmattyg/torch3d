@@ -58,6 +58,8 @@ class AudioPlayer {
 	init(songbook) {
 		// this.getMediaSettings();
 		this.element.jPlayer("stop");
+		this.mediaUrl = null;
+		this.mediaTitle = null;
 
 		this.element.jPlayer({
 	        size: {
