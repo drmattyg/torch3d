@@ -1,26 +1,33 @@
 "use strict"
 class AudioPlayer {
 
-	constructor(id) {
+	constructor(id, mp3InputId, getCurrentSongbookCallback) {
 		this.id = id;
 		this.element = $(id);
+		this.getCurrentSongbookCallback = getCurrentSongbookCallback;
+
 		this.init();
-    	this.localAudio = false;
-    	$("#mp3-input").on("change", () => { 
-    		var f = $("#mp3-input").get(0).files[0];
-    		this.element.jPlayer("setMedia", 
-	        {
-	            title: f.name.substr(0, 20) + "...",
-	            mp3: window.URL.createObjectURL(f)
-	        });
-	        this.localAudio = true;
-	        this.isPaused = false;
+    	//this.localAudio = false;
+    	var self = this;
+    	console.log(mp3InputId);
+    	$(mp3InputId).on("change", () => { 
+    		var f = $(mp3InputId).get(0).files[0];
+    		var url = window.URL.createObjectURL(f);
+    		var songbook = getCurrentSongbookCallback();
+    		if(!songbook.title) {
+    			songbook.title = f.name.substr(0, 20) + "...";
+    		}
+    		songbook.mp3 = url;
+    		console.log(self);
+    		self.setMusicPlayerOptions(songbook);
+	        self.isPaused = false;
     	});
 		
 	}
 
 	init() {
 		this.element.jPlayer("stop");
+
 		this.element.jPlayer({
 	        size: {
 	            width: "0px",
@@ -35,12 +42,15 @@ class AudioPlayer {
 	        remainingDuration: true,
 	        toggleDuration: true
     	});
+    	if(this.getCurrentSongbookCallback()) {
+    		this.setMusicPlayerOptions(this.getCurrentSongbookCallback());
+    	}
 
 	}
 
 	setMusicPlayerOptions(songbook) {
 	    if(songbook.mp3) {
-	    	this.localAudio = false;
+	    	//this.localAudio = false;
 	        this.element.jPlayer("setMedia", 
 	        {
 	            title: songbook.title,
