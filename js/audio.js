@@ -1,31 +1,62 @@
 "use strict"
 class AudioPlayer {
 
-	constructor(id, mp3InputId, getCurrentSongbookCallback) {
+	constructor(id, mp3InputId) {
 		this.id = id;
 		this.element = $(id);
-		this.getCurrentSongbookCallback = getCurrentSongbookCallback;
-
-		this.init();
+		console.log("a");
+		this.init(null);
+		console.log("b");
     	//this.localAudio = false;
     	var self = this;
-    	console.log(mp3InputId);
     	$(mp3InputId).on("change", () => { 
-    		var f = $(mp3InputId).get(0).files[0];
-    		var url = window.URL.createObjectURL(f);
-    		var songbook = getCurrentSongbookCallback();
-    		if(!songbook.title) {
-    			songbook.title = f.name.substr(0, 20) + "...";
-    		}
-    		songbook.mp3 = url;
-    		console.log(self);
-    		self.setMusicPlayerOptions(songbook);
+    		self.setLocalInput();
 	        self.isPaused = false;
     	});
 		
 	}
 
-	init() {
+	setSongbook(songbook) {
+		if(songbook.mp3) {
+			this.mediaUrl = songbook.mp3;
+			this.mediaTitle = ""
+			this.mediaTitle = "";
+			if(songbook.title) {
+				this.mediaTitle = songbook.title;
+			}
+			this.setMusicPlayerOptions();
+		}
+	}
+
+	setLocalInput() {
+		var f = $(mp3InputId).get(0).files[0];
+		var url = window.URL.createObjectURL(f);
+		if(!songbook.title) {
+			this.mediaTitle = f.name.substr(0, 20) + "...";
+    	} else {
+    		this.mediaTitle = mediaTitle = f.name.substr(0, 20) + "...";
+    	}
+    	this.setMusicPlayerOptions();
+
+	}
+
+	// getMediaSettings() {
+	// 	var songbook = this.getCurrentSongbookCallback();
+	// 	console.log(1);
+	// 	if(songbook)  {
+	// 		console.log(2);
+	// 		this.mediaUrl = songbook.mp3;
+	// 		this.mediaTitle = "";
+	// 		if(songbook.title) {
+	// 			this.mediaTitle = songbook.title;
+	// 		}
+	// 		console.log(this.mediaUrl);
+	// 		return;
+	// 	}
+	// }
+
+	init(songbook) {
+		// this.getMediaSettings();
 		this.element.jPlayer("stop");
 
 		this.element.jPlayer({
@@ -42,26 +73,33 @@ class AudioPlayer {
 	        remainingDuration: true,
 	        toggleDuration: true
     	});
-    	if(this.getCurrentSongbookCallback()) {
-    		this.setMusicPlayerOptions(this.getCurrentSongbookCallback());
+    	if(songbook) {
+    		this.setSongbook(songbook);
     	}
 
 	}
 
-	setMusicPlayerOptions(songbook) {
-	    if(songbook.mp3) {
-	    	//this.localAudio = false;
-	        this.element.jPlayer("setMedia", 
-	        {
-	            title: songbook.title,
-	            mp3: songbook.mp3
-	        });
-	    }
+	setMusicPlayerOptions() {
+		console.log("setting");
+		console.log(this.mediaUrl);
+		var url = this.mediaUrl;
+		var title = this.mediaTitle;
+        this.element.jPlayer("setMedia", 
+        {
+            title: title,
+            mp3: url
+        });
 	}
 
     play(callback) {
-    	this.element.bind($.jPlayer.event.play, () => { callback(); });
+    	console.log("blah")
+    	console.log(this.mediaUrl);
+    	console.log(this.mediaTitle);
+    	this.element.bind($.jPlayer.event.play, () => { 
+    		callback(); 
+    	});
     	this.element.jPlayer("play", 0);
+    	console.log("asdf")
     }
 
     togglePause() {

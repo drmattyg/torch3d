@@ -68,16 +68,18 @@ function runEditorSongbook() {
     try {
         var yml = jsyaml.safeLoad(text);
 //            torchModel = new TorchModel(scale, scene);
-        window.current_songbook = new Songbook(text, torchModel, (sb) => { 
-            if(sb.mp3) { //|| audioPlayer.localAudio) {
-                if(sb.mp3) {
-                    audioPlayer.setMusicPlayerOptions(sb)
-                }
+        new Songbook(text, torchModel, (sb) => { 
+            window.current_songbook = sb;
+            audioPlayer.init(sb);
+            if(audioPlayer.mediaUrl) {
+                console.log("bar");
                 audioPlayer.play(() => {
+                    console.log("baz");
                     resetAndRun(sb);
 
                 });
             } else {
+                console.log("quux");
                 resetAndRun(sb);                
             }
             
@@ -141,7 +143,6 @@ $(document).ready(function(){
     });
     // jplayer
     audioPlayer = new AudioPlayer("#jquery_jplayer_1", "#mp3-input", getCurrentSongbook);
-
     // load the documenation
     $.get({
         url: "build/torch_doc.html",
