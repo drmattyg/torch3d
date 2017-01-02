@@ -1,0 +1,61 @@
+version: 1.0
+author: matt@hydrocarboncollective.org
+title: A Song for Diana
+mp3: /torch3d/music/ella_fitzgerald_round_midnight.mp3
+songbook:
+    - start_at: 800
+      time: 100
+      edges:
+      - edge: 5
+        flame: 1
+        dir: -1
+    - start_at: 2500
+      time: 100
+      edges:
+      - edge: 4
+        flame: 1
+        dir: -1
+    - start_at: 3800
+      time: 100
+      edges:
+      - edge: 3
+        flame: 1
+        dir: -1
+    - start_at: 6300
+      time: 3000
+      edges:
+      - edge: 3
+        flame: 1
+        dir: 1
+        distance: 0.66
+      - edge: 5
+        flame: 1
+        dir: 1
+        distance: 0.66
+      - edge: 4
+        flame: 1
+        dir: 1
+        distance: 0.66
+    - start_at: 9200
+      time: 3000
+      edges:
+      - edge: 3
+        flame: 1
+        dir: -1
+        distance: 0.33
+      - edge: 5
+        flame: 1
+        dir: -1
+        distance: 0.33
+      - edge: 4
+        flame: 1
+        dir: -1
+        distance: 0.33
+# I do pretty well...
+    - start_at: 12200
+      time: 100
+      edges:
+      - edge: 8
+        flame: 1
+        dir: -1
+      
