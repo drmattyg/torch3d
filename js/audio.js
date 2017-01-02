@@ -43,21 +43,6 @@ class AudioPlayer {
 
 	}
 
-	// getMediaSettings() {
-	// 	var songbook = this.getCurrentSongbookCallback();
-	// 	console.log(1);
-	// 	if(songbook)  {
-	// 		console.log(2);
-	// 		this.mediaUrl = songbook.mp3;
-	// 		this.mediaTitle = "";
-	// 		if(songbook.title) {
-	// 			this.mediaTitle = songbook.title;
-	// 		}
-	// 		console.log(this.mediaUrl);
-	// 		return;
-	// 	}
-	// }
-
 	reset() {
 		this.mediaUrl = null;
 		this.mediaTitle = null;
@@ -82,15 +67,12 @@ class AudioPlayer {
     	});
     	this.mediaUrl = null;
     	if(!this.setLocalInput() && songbook != null) {
-//    	if(songbook) {
     		this.setSongbook(songbook);
     	}
 
 	}
 
 	setMusicPlayerOptions() {
-		console.log("setting");
-		console.log(this.mediaUrl);
 		var url = this.mediaUrl;
 		var title = this.mediaTitle;
         this.element.jPlayer("setMedia", 
@@ -101,14 +83,10 @@ class AudioPlayer {
 	}
 
     play(callback) {
-    	console.log("blah")
-    	console.log(this.mediaUrl);
-    	console.log(this.mediaTitle);
     	this.element.bind($.jPlayer.event.play, () => { 
     		callback(); 
     	});
     	this.element.jPlayer("play", 0);
-    	console.log("asdf")
     }
 
     togglePause() {
