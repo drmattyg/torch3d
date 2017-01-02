@@ -72,14 +72,11 @@ function runEditorSongbook() {
             window.current_songbook = sb;
             audioPlayer.init(sb);
             if(audioPlayer.mediaUrl) {
-                console.log("bar");
                 audioPlayer.play(() => {
-                    console.log("baz");
                     resetAndRun(sb);
 
                 });
             } else {
-                console.log("quux");
                 resetAndRun(sb);                
             }
             

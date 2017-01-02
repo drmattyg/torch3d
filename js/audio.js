@@ -5,10 +5,7 @@ class AudioPlayer {
 		this.id = id;
 		this.element = $(id);
 		this.mp3InputId = mp3InputId;
-		console.log("a");
 		this.init(null);
-		console.log("b");
-    	//this.localAudio = false;
     	var self = this;
     	$(mp3InputId).on("change", () => { 
     		self.setLocalInput();
@@ -29,7 +26,6 @@ class AudioPlayer {
 	}
 
 	setLocalInput() {
-		console.log(this.mp3InputId);
 		var f = $(this.mp3InputId).get(0).files[0];
 		if(!f) {
 			return false;
