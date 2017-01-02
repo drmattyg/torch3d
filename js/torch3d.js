@@ -108,9 +108,11 @@ $(document).ready(function(){
     $("#run-button").click(function() {
         getCurrentSongbook().stop();
         $("#pause-button").html('<i class="fa fa-pause"></i>');
+        audioPlayer.init();
         runEditorSongbook();
     });
     $("#pause-button").click(function() {
+        audioPlayer.togglePause();
         if(getCurrentSongbook().togglePause()) {
             $("#pause-button").html('<i class="fa fa-play"></i>');
         } else {

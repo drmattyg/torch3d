@@ -4,6 +4,23 @@ class AudioPlayer {
 	constructor(id) {
 		this.id = id;
 		this.element = $(id);
+		this.init();
+    	this.localAudio = false;
+    	$("#mp3-input").on("change", () => { 
+    		var f = $("#mp3-input").get(0).files[0];
+    		this.element.jPlayer("setMedia", 
+	        {
+	            title: f.name.substr(0, 20) + "...",
+	            mp3: window.URL.createObjectURL(f)
+	        });
+	        this.localAudio = true;
+	        this.isPaused = false;
+    	});
+		
+	}
+
+	init() {
+		this.element.jPlayer("stop");
 		this.element.jPlayer({
 	        size: {
 	            width: "0px",
@@ -18,17 +35,7 @@ class AudioPlayer {
 	        remainingDuration: true,
 	        toggleDuration: true
     	});
-    	this.localAudio = false;
-    	$("#mp3-input").on("change", () => { 
-    		var f = $("#mp3-input").get(0).files[0];
-    		this.element.jPlayer("setMedia", 
-	        {
-	            title: f.name.substr(0, 20) + "...",
-	            mp3: window.URL.createObjectURL(f)
-	        });
-	        this.localAudio = true;
-    	});
-		
+
 	}
 
 	setMusicPlayerOptions(songbook) {
@@ -47,6 +54,14 @@ class AudioPlayer {
     	this.element.jPlayer("play", 0);
     }
 
+    togglePause() {
+    	if(!this.isPaused) {
+    		this.element.jPlayer("pause");
+    	} else {
+    		this.element.jPlayer("play");
+    	}
+    	this.isPaused = !this.isPaused;
+    }
 
 }
 
