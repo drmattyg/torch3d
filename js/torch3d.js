@@ -74,7 +74,6 @@ function runEditorSongbook() {
             console.trace();
             if(audioPlayer.mediaUrl) {
                 audioPlayer.play(() => {
-                    console.log("Resetting");
                     resetAndRun(sb);
 
                 });

@@ -41,6 +41,7 @@ class AudioPlayer {
 
 	reset() {
 		this.element.jPlayer("stop");
+		this.isPaused = false;
 		this.mediaUrl = null;
 		this.mediaTitle = null;
 	}
@@ -49,6 +50,7 @@ class AudioPlayer {
 
 	init(songbook) {
 		this.element.jPlayer("stop");
+		this.isPaused = false;
 		this.element.jPlayer({
 	        size: {
 	            width: "0px",
@@ -81,8 +83,8 @@ class AudioPlayer {
 	}
 
     play(callback) {
-    	this.element.unbind($.jPlayer.event.play);
     	this.element.bind($.jPlayer.event.play, () => { 
+    		this.element.unbind($.jPlayer.event.play);
     		callback(); 
     	});
     	this.element.jPlayer("play", 0);
