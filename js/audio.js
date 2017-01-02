@@ -40,12 +40,14 @@ class AudioPlayer {
 	}
 
 	reset() {
+		this.element.jPlayer("stop");
 		this.mediaUrl = null;
 		this.mediaTitle = null;
 	}
 
+
+
 	init(songbook) {
-		// this.getMediaSettings();
 		this.element.jPlayer("stop");
 		this.element.jPlayer({
 	        size: {
