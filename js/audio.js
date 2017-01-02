@@ -81,6 +81,7 @@ class AudioPlayer {
 	}
 
     play(callback) {
+    	this.element.unbind($.jPlayer.event.play);
     	this.element.bind($.jPlayer.event.play, () => { 
     		callback(); 
     	});

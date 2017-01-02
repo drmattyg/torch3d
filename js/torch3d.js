@@ -71,8 +71,10 @@ function runEditorSongbook() {
         new Songbook(text, torchModel, (sb) => { 
             window.current_songbook = sb;
             audioPlayer.init(sb);
+            console.trace();
             if(audioPlayer.mediaUrl) {
                 audioPlayer.play(() => {
+                    console.log("Resetting");
                     resetAndRun(sb);
 
                 });
@@ -136,6 +138,7 @@ $(document).ready(function(){
             torchModel.delete();
             audioPlayer.reset();
             resetSettings();
+            console.log("Reset");
             editorControl.loadSample(example, runEditorSongbook);
             
         })
