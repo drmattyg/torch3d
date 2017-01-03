@@ -72,4 +72,4 @@ The implied distance is 1, and the implied speed is 1 full edge length per 10 se
 
 ### Music
 
-Torch Song songbooks can be synced with music, specified as a URL to an MP3 in the songbook.  This feature is coming soon!
+Torch Song songbooks can be synced with music, specified as a URL to an MP3 in the songbook, or loaded locally through the settings bar.  See, for example, the "Round Midnight" example for specifying a URL for an MP3.  In the settings bar on the left, you can also load a local MP3 to be played with a songbook.
