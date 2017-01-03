@@ -89,7 +89,7 @@ function resetSettings() {
     updateTimer(0);
 }
 
-var examples = ['song_for_diana', 'chaser'];
+var examples = ['round_midnight', 'song_for_diana', 'chaser'];
 
 $(document).ready(function(){
     $("[name='show-edge-labels']").bootstrapSwitch();

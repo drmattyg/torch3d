@@ -1,6 +1,6 @@
 version: 1.0
 author: matt@hydrocarboncollective.org
-title: A Song for Diana
+title: Round Midnight (unfinished)
 mp3: /torch3d/music/ella_fitzgerald_round_midnight.mp3
 songbook:
     - start_at: 800
@@ -53,9 +53,38 @@ songbook:
         distance: 0.33
 # I do pretty well...
     - start_at: 12200
-      time: 100
+      time: 4650
       edges:
       - edge: 8
         flame: 1
-        dir: -1
-      
+        dir: 1
+      - edge: 3
+        flame: 0
+        dir: 0
+      - edge: 4
+        flame: 0
+        dir: 0
+      - edge: 5
+        flame: 0
+        dir: 0        
+    - start_at: 16850
+      time: 4300
+      edges:
+      - edge: 2
+        flame: 1
+        dir: 1
+      - edge: 8
+        flame: 0
+        dir: 0
+    # preposition
+    - start_at: 16850
+      time: 3000
+      edges:
+      - edge: 0
+        flame: 0
+        dir: 1
+      - edge: 1
+        flame: 0
+        dir: 1
+
+# suppertime i'm feeling sad 21000 or so
