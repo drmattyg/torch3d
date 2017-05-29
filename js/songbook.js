@@ -69,7 +69,7 @@ class Songbook {
 			var edge = self.torchModel.edges["e" + e.edge];
 			edge.flame_state = e.flame;
 			var distance = e.distance ? e.distance : 1.0;
-			var drive_dir = e.dir ? e.dir : 1;
+			var drive_dir = e.dir != null ? e.dir : 1;
 			edge.setAutoSpeed(true, command.time, distance, drive_dir);
 		});
 
