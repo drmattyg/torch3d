@@ -54,7 +54,7 @@ songbook:
       - edge: 2
         flame: 1
         dir: 1
-  - start_at: 20000
+  - start_at: 25000
     time: 10000
     edges:
       - edge: 0
