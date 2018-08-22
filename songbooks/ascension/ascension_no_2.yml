@@ -67,7 +67,7 @@ songbook:
         flame: 1
         dir: -1
 
-  - start_at: 30000
+  - start_at: 35000
     time: 100
     edges:
       - edge: 4
@@ -86,21 +86,21 @@ songbook:
         flame: 0
         dir: 0
 
-  - start_at: 30000
+  - start_at: 35000
     time:  12000
     edges:
       - edge: 3
         flame: 1
         dir: -1
 
-  - start_at: 33000
+  - start_at: 38000
     time:  9000
     edges:
       - edge: 4
         flame: 1
         dir: -1
 
-  - start_at: 36000
+  - start_at: 41000
     time:  6000
     edges:
       - edge: 5
